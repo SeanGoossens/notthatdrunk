@@ -1,5 +1,10 @@
 <!doctype html>
 <html class="no-js" lang="en">
+  <style>
+    table, th, td {
+      border:1px solid black;
+    }
+    </style>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -18,8 +23,18 @@
       <div class="grid-x grid-padding-x">
         <div class="large-12 cell">
           <div class="callout">
-            <h1><%= testNumber %></h1>
-            <p>This is gonna be lit.</p>
+            <table style="width:25%">
+              <tr>
+                <td>Player</td>
+                <td>Score</td>
+                <td>Role</td>
+              </tr>
+              <tr>
+                <td><%= playerName %></td>
+                <td><%= playerScore %></td>
+                <td><%= playerRole %></td>
+              </tr>
+            </table>
             
             <div class="grid-x grid-padding-x">
               <div class="large-4 medium-4 medium-push-2 cell">

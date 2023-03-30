@@ -5,10 +5,14 @@ app.set("view engine", "ejs");
 
 databasePull().then((playerData) => {
   app.get("/", function (req, res) {
-    var testNumber = playerData;
+    var playerName = playerData["player"];
+    var playerScore = playerData["score"];
+    var playerRole = playerData["role"];
 
     res.render("pages/foundation", {
-      testNumber: testNumber,
+      playerName: playerName,
+      playerScore: playerScore,
+      playerRole: playerRole,
     });
   });
 });

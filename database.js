@@ -10,8 +10,12 @@ const databasePull = function () {
     .from("io")
     .select("*")
     .then((response) => {
-      let playerData = [];
-      playerData.push(response["data"][0].id);
+      let playerData = {
+        player: response["data"][0].player_name,
+        score: response["data"][0].score,
+        role: response["data"][0].role,
+      };
+      //   playerData.push(response["data"][0].id);
       return playerData;
     })
     .catch((error) => {
