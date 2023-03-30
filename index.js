@@ -3,6 +3,7 @@ const app = express();
 
 app.get("/", (req, res) => {
   res.status(200).send("Hello server is running").end();
+  console.log(app);
 });
 
 // Start the server
