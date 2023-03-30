@@ -1,13 +1,24 @@
 const express = require("express");
 const app = express();
-const path = require("path");
+const databasePull = require("./database.js");
+app.set("view engine", "ejs");
 
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "basic-project/index.html"));
+databasePull().then((playerData) => {
+  app.get("/", function (req, res) {
+    var testNumber = playerData;
+
+    res.render("pages/foundation", {
+      testNumber: testNumber,
+    });
+  });
+});
+
+app.get("/about", function (req, res) {
+  res.render("pages/about");
 });
 
 // Start the server
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
   console.log("Press Ctrl+C to quit.");
