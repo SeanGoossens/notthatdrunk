@@ -10,18 +10,21 @@ const databasePull = function () {
   return supabase
     .from("io")
     .select("*")
+    .order("score", { ascending: false })
     .then((response) => {
       let playerArray = [];
       for (let i = 0; i < response["data"].length; i++) {
         let newObject = {};
-        (newObject.id = i),
+        (newObject.id = i + 1),
           (newObject.playerName = response["data"][i].player_name),
           (newObject.score = response["data"][i].score),
-          (newObject.role = response["data"][i].role);
+          (newObject.role = response["data"][i].role),
+          (newObject.overallRank = response["data"][i].overall_rank),
+          (newObject.roleRank = response["data"][i].role_rank);
         playerArray.push(newObject);
       }
       //   playerData.push(response["data"][0].id);
-      console.log(playerArray);
+      //   console.log(playerArray);
       return playerArray;
     })
     .catch((error) => {
