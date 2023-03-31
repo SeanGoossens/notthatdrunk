@@ -19,22 +19,22 @@
           <h1>Welcome to Foundation</h1>
         </div>
       </div>
-
+      
       <div class="grid-x grid-padding-x">
         <div class="large-12 cell">
           <div class="callout">
             <table style="width:25%">
+
               <tr>
-                <td>Player</td>
-                <td>Score</td>
-                <td>Role</td>
-              </tr>
-              <tr>
-                <td><%= playerName %></td>
-                <td><%= playerScore %></td>
-                <td><%= playerRole %></td>
-              </tr>
-            </table>
+                <% for(var i=0; i < playerArray.length; i++) { %>
+                  <tr>
+                    <td><%= playerArray[i].id %></td>
+                    <td><%= playerArray[i].playerName %></td>
+                    <td><%= playerArray[i].score %></td>
+                    <td><%= playerArray[i].role %></td>
+                  </tr>
+               <% } %>
+               </table>
             
             <div class="grid-x grid-padding-x">
               <div class="large-4 medium-4 medium-push-2 cell">
