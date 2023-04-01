@@ -61,7 +61,7 @@ async function guildMembers() {
       honorableKills: members[i].honorableKills,
     };
 
-    try {
+    
       let getScore = `${character["baseUrl"]}&fields=mythic_plus_scores`;
       let rioRequest = await fetch(getScore);
       let scoreResponse = await rioRequest.json();
@@ -86,42 +86,77 @@ async function guildMembers() {
       let rankRequest = await fetch(getRank);
       let rankResponse = await rankRequest.json();
 
-      character["roleRank"] =
-        rankResponse.mythic_plus_ranks[character["role"]].world;
+      character["dps"] = 0;
+      character["healer"] = 0;
+      character["tank"] = 0;
+
+      try { 
+      character["dps"] = rankResponse.mythic_plus_ranks.dps.world;
+    } catch (error) {
+      console.log(`${character["playerName"]} does not have a dps rank`);
+      continue;
+    }
+    try { 
+      character["healer"] = rankResponse.mythic_plus_ranks.healer.world;
+    } catch (error) {
+      console.log(`${character["playerName"]} does not have a healer rank`);
+      continue;
+    }
+    try { 
+      character["tank"] = rankResponse.mythic_plus_ranks.tank.world;
+    } catch (error) {
+      console.log(`${character["playerName"]} does not have a tank rank`);
+      continue;
+    }
+    const charArray = [character["dps"],character["healer"],character["tank"]];
+
+      if (character["dps"] < character["healer"] && character["dps"] < character["tank"] && character["dps"] != 0) {
+        character["roleRank"] = character["dps"];
+      } else if (character["healer"] < character["dps"] && character["healer"] < character["tank"] && character["healer"] != 0) {
+        character["roleRank"] = character ["healer"];
+      } else if (character["tank"] < character["healer"] && character["tank"] < character["dps"] && character["tank"] != 0) {
+        character["roleRank"] = character["tank"];
+      } else {
+        character["roleRank"] = 0
+      }
+    
+      
+    console.log(character);
+
+      
+      // character["roleRank"] = 
+      //   rankResponse.mythic_plus_ranks[character["role"]].world;
       character["overallRank"] = rankResponse.mythic_plus_ranks.overall.world;
       character["rolePercentile"] =
         Math.round((character["roleRank"] / specPop) * 100 * 100) / 100;
       character["overallPercentile"] =
         Math.round((character["overallRank"] / totalPop) * 100 * 100) / 100;
-    } catch (error) {
-      console.error(error);
-      continue;
-    }
+    
 
-    const { data, error } = await supabase
-      .from("io")
-      .update({
-        player_name: character.playerName,
-        score: character.score,
-        overall_rank: character.overallPercentile,
-        role_rank: character.rolePercentile,
-        race: character.race,
-        class: character.wowClass,
-        spec: character.spec,
-        role: character.role,
-        gender: character.gender,
-        faction: character.faction,
-        achievement_points: character.achievementPoints,
-        honorable_kills: character.honorableKills,
-      })
-      .eq("player_name", character.playerName)
-      .select();
+    // const { data, error } = await supabase
+    //   .from("io")
+    //   .update({
+    //     player_name: character.playerName,
+    //     score: character.score,
+    //     overall_rank: character.overallPercentile,
+    //     role_rank: character.rolePercentile,
+    //     race: character.race,
+    //     class: character.wowClass,
+    //     spec: character.spec,
+    //     role: character.role,
+    //     gender: character.gender,
+    //     faction: character.faction,
+    //     achievement_points: character.achievementPoints,
+    //     honorable_kills: character.honorableKills,
+    //   })
+    //   .eq("player_name", character.playerName)
+    //   .select();
 
-    if (error) {
-      console.error(error);
-    } else {
-      console.log(data);
-    }
+    // if (error) {
+    //   console.error(error);
+    // } else {
+    //   console.log(data);
+    // }
   }
 }
 
