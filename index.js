@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const databasePull = require("./database.js");
-const databaseUpdate = require("./scheduledUpdate.js");
+const rioUpdate = require("./guildMembersUpdate.js");
 const cron = require("node-cron");
 app.set("view engine", "ejs");
 
@@ -20,8 +20,9 @@ app.get("/about", function (req, res) {
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  cron.schedule("0 * * * *", () => {
-    databaseUpdate();
+  cron.schedule("55 * * * *", () => {
+    //55 minutes after the hour, to allow for processing before it's pulled on the hour
+    rioUpdate();
   });
   console.log(`App listening on port ${PORT}`);
   console.log("Press Ctrl+C to quit.");

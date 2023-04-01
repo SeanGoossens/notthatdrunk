@@ -8,7 +8,7 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY || LOCAL_KEY
 );
 
-async function guildMembers() {
+async function rioUpdate() {
   let membersURL =
     "https://raider.io/api/v1/guilds/profile?region=us&realm=emerald-dream&name=Not%20That%20Drunk&fields=members";
 
@@ -150,4 +150,6 @@ async function guildMembers() {
   }
 }
 
-guildMembers();
+// rioUpdate();
+
+module.exports = rioUpdate;
