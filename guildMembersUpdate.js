@@ -37,7 +37,7 @@ async function guildMembers() {
   const healerPop = 888272; // Hard coding this since it's not in the API. As of 3/31/2023
   const tankPop = 890322; // Hard coding this since it's not in the API. As of 3/31/2023
   const dpsPop = 2669414; // Hard coding this since it's not in the API. As of 3/31/2023
-  const totalPop = 3439920
+  const totalPop = 3439920;
 
   for (let i = 0; i < members.length; i++) {
     let character = {
@@ -53,6 +53,7 @@ async function guildMembers() {
       honorableKills: members[i].honorableKills,
     };
 
+    //Normalize the role format
     switch (character["role"]) {
       case "DPS":
         character["role"] = "dps";
@@ -64,7 +65,8 @@ async function guildMembers() {
         character["role"] = "tank";
         break;
     }
-    
+
+    //Error handling for invalid characters
     try {
       let getScore = `${character["baseUrl"]}&fields=mythic_plus_scores`;
       let rioRequest = await fetch(getScore);
@@ -74,49 +76,50 @@ async function guildMembers() {
       let getRank = `${character["baseUrl"]}&fields=mythic_plus_ranks`;
       let rankRequest = await fetch(getRank);
       let rankResponse = await rankRequest.json();
-      
+
       character["dps"] = rankResponse.mythic_plus_ranks?.dps?.world ?? 0;
       character["healer"] = rankResponse.mythic_plus_ranks?.healer?.world ?? 0;
       character["tank"] = rankResponse.mythic_plus_ranks?.tank?.world ?? 0;
-    
-    
+
+      //To select the smallest number (the player's assumed main)
       function positiveMin(arr) {
         let min;
-        arr.forEach(function(x) {
+        arr.forEach(function (x) {
           if (x <= 0) return;
-          if (!min || (x < min)) min = x;
+          if (!min || x < min) min = x;
         });
         return min;
       }
 
-      
-   
       character["dpsPercentile"] =
         Math.round((character["dps"] / dpsPop) * 100 * 100) / 100;
-        character["healerPercentile"] =
+      character["healerPercentile"] =
         Math.round((character["healer"] / healerPop) * 100 * 100) / 100;
-        character["tankPercentile"] =
+      character["tankPercentile"] =
         Math.round((character["tank"] / tankPop) * 100 * 100) / 100;
 
-        const charArray = [character["dpsPercentile"],character["healerPercentile"],character["tankPercentile"]];
-        character["roleRank"] = positiveMin(charArray) ?? 0;
+      const charArray = [
+        character["dpsPercentile"],
+        character["healerPercentile"],
+        character["tankPercentile"],
+      ];
 
-        if(character["roleRank"] > 100) {
-          character["roleRank"] = 0;
-        }
-      
-      // character["roleRank"] = 
+      character["roleRank"] = positiveMin(charArray) ?? 0; //Set to zero if undefined
+
+      if (character["roleRank"] > 100) {
+        character["roleRank"] = 0;
+      }
+
+      // character["roleRank"] =
       //   rankResponse.mythic_plus_ranks[character["role"]].world;
       character["overallRank"] = rankResponse.mythic_plus_ranks.overall.world;
       character["overallPercentile"] =
         Math.round((character["overallRank"] / totalPop) * 100 * 100) / 100;
-
-      } catch (error) {
-        console.error(error);
-        continue;
-      }
-      // console.log(character)
-    
+    } catch (error) {
+      console.error(error);
+      continue;
+    }
+    // console.log(character)
 
     const { data, error } = await supabase
       .from("io")
@@ -134,8 +137,7 @@ async function guildMembers() {
         achievement_points: character.achievementPoints,
         dps_percentile: character.dpsPercentile,
         healer_percentile: character.healerPercentile,
-        tank_percentile: character.tankPercentile
-        
+        tank_percentile: character.tankPercentile,
       })
       .eq("player_name", character.playerName)
       .select();
