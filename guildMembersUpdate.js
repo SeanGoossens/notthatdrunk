@@ -37,7 +37,7 @@ async function guildMembers() {
   const healerPop = 888272; // Hard coding this since it's not in the API. As of 3/31/2023
   const tankPop = 890322; // Hard coding this since it's not in the API. As of 3/31/2023
   const dpsPop = 2669414; // Hard coding this since it's not in the API. As of 3/31/2023
-  const totalPop = healerPop + tankPop + dpsPop;
+  const totalPop = 3439920
 
   for (let i = 0; i < members.length; i++) {
     let character = {
