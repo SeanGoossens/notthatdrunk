@@ -1,4 +1,4 @@
-const getLatestReportId = require("../getLatestReportId");
+const getLatestReportId = require("../get-latest-report-id");
 
 async function getQueryStrings() {
   let latestReportId = await getLatestReportId();

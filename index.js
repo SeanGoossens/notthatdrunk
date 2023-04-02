@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const databasePull = require("./database.js");
-const rioUpdate = require("./guildMembersUpdate.js");
+const rioUpdate = require("./cron_jobs/guild-members-update.js");
 const cron = require("node-cron");
 app.set("view engine", "ejs");
 

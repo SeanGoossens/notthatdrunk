@@ -1,5 +1,5 @@
-const { WCLOGS_AUTH } = require("./config.json");
-const getQueryStrings = require("./wc_log/wcLogStrings");
+const { WCLOGS_AUTH } = require("../config.json");
+const getQueryStrings = require("./wc-log-strings");
 const util = require("util");
 const request = util.promisify(require("request"));
 
@@ -39,6 +39,7 @@ async function wclData(lookupString) {
   const response2 = await request(options2);
   const log = JSON.parse(response2.body);
   const data = log.data.reportData.report.rankings.data;
+  // console.log(data);
   return data;
 }
 // wclData("hps");

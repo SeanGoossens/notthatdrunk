@@ -1,4 +1,4 @@
-const wclData = require("./wcLogs");
+const wclData = require("./wc-logs");
 
 async function parseLog() {
   const dpsData = await wclData("dps");
