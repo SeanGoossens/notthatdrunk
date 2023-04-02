@@ -1,5 +1,5 @@
 const { createClient } = require("@supabase/supabase-js");
-const { LOCAL_URL, LOCAL_KEY } = require("./config.json");
+const { LOCAL_URL, LOCAL_KEY } = require("../config.json");
 
 const supabase = createClient(
   process.env.SUPABASE_URL || LOCAL_URL,
