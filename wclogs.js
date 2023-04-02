@@ -1,9 +1,16 @@
 var request = require("request");
 const { WCLOGS_AUTH } = require("./config.json");
-const getLatestReportId = require("./getLatestReportId");
+const getQueryStrings = require("./wc_log_templates/wcLogStrings");
 
 async function wclData() {
-  let latestReportId = await getLatestReportId();
+  let allQueryStrings = await getQueryStrings();
+
+  function findString(string) {
+    return string.name === "hps";
+  }
+
+  let queryString = allQueryStrings.find(findString).string;
+
   var options = {
     method: "POST",
     url: "https://www.warcraftlogs.com/oauth/token",
@@ -26,15 +33,7 @@ async function wclData() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        query: `query
-      { reportData {
-        report(code: "${latestReportId}") {
-            rankings(
-              playerMetric: hps
-            )
-        }
-      }
-    }`,
+        query: queryString,
         variables: {},
       }),
     };

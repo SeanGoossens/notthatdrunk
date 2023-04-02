@@ -1,15 +1,14 @@
-// Pulls parses for a particular boss in the report
+const getLatestReportId = require("../getLatestReportId");
 
-// body: JSON.stringify({
-//     query: `query
-//     { reportData {
-//       report(code: "${code}") {
-//         rankings(
-//           compare: Parses
-//           fightIDs: 21
-//         )
-//       }
-//     }
-//   }`,
-//     variables: {},
-//   }),
+async function getQueryStrings() {
+  let latestReportId = await getLatestReportId();
+  let queryStrings = [
+    {
+      name: "hps",
+      string: `query { reportData { report ( code: "${latestReportId}") { rankings ( playerMetric: hps ) } } }`,
+    },
+  ];
+  return queryStrings;
+}
+
+module.exports = getQueryStrings;
