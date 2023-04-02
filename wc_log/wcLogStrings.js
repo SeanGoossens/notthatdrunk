@@ -7,6 +7,10 @@ async function getQueryStrings() {
       name: "hps",
       string: `query { reportData { report ( code: "${latestReportId}") { rankings ( playerMetric: hps ) } } }`,
     },
+    {
+      name: "dps",
+      string: `query { reportData { report ( code: "${latestReportId}") { rankings ( playerMetric: dps ) } } }`,
+    },
   ];
   return queryStrings;
 }

@@ -1,17 +1,18 @@
-var request = require("request");
 const { WCLOGS_AUTH } = require("./config.json");
-const getQueryStrings = require("./wc_log_templates/wcLogStrings");
+const getQueryStrings = require("./wc_log/wcLogStrings");
+const util = require("util");
+const request = util.promisify(require("request"));
 
-async function wclData() {
-  let allQueryStrings = await getQueryStrings();
-
+async function wclData(lookupString) {
+  const allQueryStrings = await getQueryStrings();
+  const stringLookup = lookupString;
   function findString(string) {
-    return string.name === "hps";
+    return string.name === stringLookup;
   }
 
-  let queryString = allQueryStrings.find(findString).string;
+  const queryString = allQueryStrings.find(findString).string;
 
-  var options = {
+  const options = {
     method: "POST",
     url: "https://www.warcraftlogs.com/oauth/token",
     headers: {
@@ -22,26 +23,24 @@ async function wclData() {
       grant_type: "client_credentials",
     },
   };
-  request(options, async function (error, response) {
-    if (error) throw new Error(error);
-    token = await JSON.parse(response.body).access_token;
-    var options = {
-      method: "POST",
-      url: "https://www.warcraftlogs.com/api/v2/client",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        query: queryString,
-        variables: {},
-      }),
-    };
-    request(options, function (error, response) {
-      if (error) throw new Error(error);
-      const log = JSON.parse(response.body);
-      console.log(log.data.reportData.report.rankings.data);
-    });
-  });
+  const response = await request(options);
+  const token = JSON.parse(response.body).access_token;
+  const options2 = {
+    method: "POST",
+    url: "https://www.warcraftlogs.com/api/v2/client",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      query: queryString,
+    }),
+  };
+  const response2 = await request(options2);
+  const log = JSON.parse(response2.body);
+  const data = log.data.reportData.report.rankings.data;
+  return data;
 }
-wclData();
+// wclData("hps");
+
+module.exports = wclData;
