@@ -1,47 +1,48 @@
 var request = require("request");
-var code = "gKbH8WFLf9kyGTJn";
-var guildId = 566479;
-var options = {
-  method: "POST",
-  url: "https://www.warcraftlogs.com/oauth/token",
-  headers: {
-    Authorization:
-      "Basic OThkNDdiN2UtMjE4OS00ZGMxLWI5YWEtMmYxZmZjN2EzNTQzOkxpV2g1dnVyNkxqMXZjVk1yVTR5TUZxQWxlYjUzN3Q2WXZOUGJBcFI=",
-    "Content-Type": "application/x-www-form-urlencoded",
-  },
-  form: {
-    grant_type: "client_credentials",
-  },
-};
-request(options, async function (error, response) {
-  if (error) throw new Error(error);
-  token = await JSON.parse(response.body).access_token;
-  let zoneRanking = 1693;
+const { WCLOGS_AUTH } = require("./config.json");
+const getLatestReportId = require("./getLatestReportId");
+
+async function wclData() {
+  let latestReportId = await getLatestReportId();
   var options = {
     method: "POST",
-    url: "https://www.warcraftlogs.com/api/v2/client",
+    url: "https://www.warcraftlogs.com/oauth/token",
     headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
+      Authorization: `Basic ${WCLOGS_AUTH}`,
+      "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: JSON.stringify({
-      query: `query 
+    form: {
+      grant_type: "client_credentials",
+    },
+  };
+  request(options, async function (error, response) {
+    if (error) throw new Error(error);
+    token = await JSON.parse(response.body).access_token;
+    var options = {
+      method: "POST",
+      url: "https://www.warcraftlogs.com/api/v2/client",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query: `query
       { reportData {
-        report(code: "${code}") {
-          rankings(
-            compare: Parses
-            fightIDs: 21
-          )
+        report(code: "${latestReportId}") {
+            rankings(
+              playerMetric: hps
+            )
         }
       }
-      }`,
-      variables: {},
-    }),
-  };
-  request(options, function (error, response) {
-    if (error) throw new Error(error);
-    const log = JSON.parse(response.body);
-
-    console.log(log.data.reportData.report.rankings.data);
+    }`,
+        variables: {},
+      }),
+    };
+    request(options, function (error, response) {
+      if (error) throw new Error(error);
+      const log = JSON.parse(response.body);
+      console.log(log.data.reportData.report.rankings.data);
+    });
   });
-});
+}
+wclData();
