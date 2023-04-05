@@ -11,12 +11,12 @@ const supabase = createClient(
 
 async function resourceUpload() {
   const data = await parseResources();
-  //   console.log(data);
+
   for (let i = 0; i < data.length; i++) {
-    const player = await data[i]?.name;
-    const ilvl = await data[i]?.ilvl;
-    const potions = await data[i]?.potions;
-    const healthstones = await data[i]?.healthstones;
+    const player = await data[i]?.name; // Player name
+    const ilvl = await data[i]?.ilvl; // The max item level of the character
+    const potions = await data[i]?.potions; // Amount of potions consumed by the player
+    const healthstones = await data[i]?.healthstones; // Amount of healthstones consumed by the player
 
     const { data: responseData, error } = await supabase
       .from("resources")

@@ -12,25 +12,25 @@ const supabase = createClient(
 );
 
 async function rankingUpload() {
-  const test = await parseLog();
-  const time = await wclData("time");
-  let latestReportId = await getLatestReportId();
+  const logs = await parseLog();
+  const time = await wclData("time"); // To pass the current log time for the live-log.js function
+  let latestReportId = await getLatestReportId(); // To pass the current report ID for the live-log.js function
   async function insertTanks() {
-    for (let i = 0; i < test.length; i++) {
-      for (let x = 0; x < test[i]?.parses?.dps?.tanks.length; x++) {
-        const player = await test[i]?.parses?.dps?.tanks[x]?.name;
+    for (let i = 0; i < logs.length; i++) {
+      for (let x = 0; x < logs[i]?.parses?.dps?.tanks.length; x++) {
+        const player = await logs[i]?.parses?.dps?.tanks[x]?.name;
         const role = "Tank";
-        const encounter = await test[i]?.name;
-        const playerClass = await test[i]?.parses?.dps?.tanks[x]?.class;
-        const spec = await test[i]?.parses?.dps?.tanks[x]?.spec;
-        const dps = await test[i]?.parses?.dps?.tanks[x]?.amount;
-        const hps = await test[i]?.parses?.healing?.tanks[x]?.amount;
-        const dpsParse = await test[i]?.parses?.dps?.tanks[x]?.rankPercent;
-        const healingParse = await test[i]?.parses?.healing?.tanks[x]
+        const encounter = await logs[i]?.name;
+        const playerClass = await logs[i]?.parses?.dps?.tanks[x]?.class;
+        const spec = await logs[i]?.parses?.dps?.tanks[x]?.spec;
+        const dps = await logs[i]?.parses?.dps?.tanks[x]?.amount;
+        const hps = await logs[i]?.parses?.healing?.tanks[x]?.amount;
+        const dpsParse = await logs[i]?.parses?.dps?.tanks[x]?.rankPercent;
+        const healingParse = await logs[i]?.parses?.healing?.tanks[x]
           ?.rankPercent;
-        const dpsilvlParse = await test[i]?.parses?.dps?.tanks[x]
+        const dpsilvlParse = await logs[i]?.parses?.dps?.tanks[x]
           ?.bracketPercent;
-        const healingilvlParse = await test[i]?.parses?.healing?.tanks[x]
+        const healingilvlParse = await logs[i]?.parses?.healing?.tanks[x]
           .bracketPercent;
         const reportId = latestReportId;
 
@@ -58,21 +58,21 @@ async function rankingUpload() {
     }
   }
   async function insertHealers() {
-    for (let i = 0; i < test.length; i++) {
-      for (let x = 0; x < test[i]?.parses?.dps?.healers.length; x++) {
-        const player = await test[i]?.parses?.dps?.healers[x]?.name;
+    for (let i = 0; i < logs.length; i++) {
+      for (let x = 0; x < logs[i]?.parses?.dps?.healers.length; x++) {
+        const player = await logs[i]?.parses?.dps?.healers[x]?.name;
         const role = "Healer";
-        const encounter = await test[i]?.name;
-        const playerClass = await test[i]?.parses?.dps?.healers[x]?.class;
-        const spec = await test[i]?.parses?.dps?.healers[x]?.spec;
-        const dps = await test[i]?.parses?.dps?.healers[x]?.amount;
-        const hps = await test[i]?.parses?.healing?.healers[x]?.amount;
-        const dpsParse = await test[i]?.parses?.dps?.healers[x]?.rankPercent;
-        const healingParse = await test[i]?.parses?.healing?.healers[x]
+        const encounter = await logs[i]?.name;
+        const playerClass = await logs[i]?.parses?.dps?.healers[x]?.class;
+        const spec = await logs[i]?.parses?.dps?.healers[x]?.spec;
+        const dps = await logs[i]?.parses?.dps?.healers[x]?.amount;
+        const hps = await logs[i]?.parses?.healing?.healers[x]?.amount;
+        const dpsParse = await logs[i]?.parses?.dps?.healers[x]?.rankPercent;
+        const healingParse = await logs[i]?.parses?.healing?.healers[x]
           ?.rankPercent;
-        const dpsilvlParse = await test[i]?.parses?.dps?.healers[x]
+        const dpsilvlParse = await logs[i]?.parses?.dps?.healers[x]
           ?.bracketPercent;
-        const healingilvlParse = await test[i]?.parses?.healing?.healers[x]
+        const healingilvlParse = await logs[i]?.parses?.healing?.healers[x]
           .bracketPercent;
         const reportId = latestReportId;
 
@@ -100,20 +100,20 @@ async function rankingUpload() {
     }
   }
   async function insertDps() {
-    for (let i = 0; i < test.length; i++) {
-      for (let x = 0; x < test[i]?.parses?.dps?.dps.length; x++) {
-        const player = await test[i]?.parses?.dps?.dps[x]?.name;
+    for (let i = 0; i < logs.length; i++) {
+      for (let x = 0; x < logs[i]?.parses?.dps?.dps.length; x++) {
+        const player = await logs[i]?.parses?.dps?.dps[x]?.name;
         const role = "DPS";
-        const encounter = await test[i]?.name;
-        const playerClass = await test[i]?.parses?.dps?.dps[x]?.class;
-        const spec = await test[i]?.parses?.dps?.dps[x]?.spec;
-        const dps = await test[i]?.parses?.dps?.dps[x]?.amount;
-        const hps = await test[i]?.parses?.healing?.dps[x]?.amount;
-        const dpsParse = await test[i]?.parses?.dps?.dps[x]?.rankPercent;
-        const healingParse = await test[i]?.parses?.healing?.dps[x]
+        const encounter = await logs[i]?.name;
+        const playerClass = await logs[i]?.parses?.dps?.dps[x]?.class;
+        const spec = await logs[i]?.parses?.dps?.dps[x]?.spec;
+        const dps = await logs[i]?.parses?.dps?.dps[x]?.amount;
+        const hps = await logs[i]?.parses?.healing?.dps[x]?.amount;
+        const dpsParse = await logs[i]?.parses?.dps?.dps[x]?.rankPercent;
+        const healingParse = await logs[i]?.parses?.healing?.dps[x]
           ?.rankPercent;
-        const dpsilvlParse = await test[i]?.parses?.dps?.dps[x]?.bracketPercent;
-        const healingilvlParse = await test[i]?.parses?.healing?.dps[x]
+        const dpsilvlParse = await logs[i]?.parses?.dps?.dps[x]?.bracketPercent;
+        const healingilvlParse = await logs[i]?.parses?.healing?.dps[x]
           .bracketPercent;
         const reportId = latestReportId;
 
