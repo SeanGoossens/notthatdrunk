@@ -19,6 +19,10 @@ async function getQueryStrings() {
       name: "resources",
       string: `query { reportData { report ( code: "${latestReportId}") { table ( startTime: 0, endTime: 99999999) } } }`,
     },
+    {
+      name: "time",
+      string: `query { reportData { report ( code: "${latestReportId}") { table ( startTime: 0, endTime: 99999999) } } }`,
+    },
   ];
   return queryStrings;
 }

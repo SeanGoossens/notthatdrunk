@@ -4,6 +4,7 @@ const parseLog = require("./wc_log/parse-log");
 const { createClient } = require("@supabase/supabase-js");
 const { LOCAL_URL, LOCAL_KEY } = require("./config.json");
 const getLatestReportId = require("./wc_log/get-latest-report-id");
+const wclData = require("./wc_log/wc-logs");
 
 const supabase = createClient(
   process.env.SUPABASE_URL || LOCAL_URL,
@@ -12,6 +13,7 @@ const supabase = createClient(
 
 async function rankingUpload() {
   const test = await parseLog();
+  const time = await wclData("time");
   let latestReportId = await getLatestReportId();
   async function insertTanks() {
     for (let i = 0; i < test.length; i++) {
@@ -45,6 +47,7 @@ async function rankingUpload() {
           dps_ilvl_parse: dpsilvlParse,
           healing_ilvl_parse: healingilvlParse,
           report_id: reportId,
+          log_time: time,
         });
         if (error) {
           console.error(error);
@@ -86,6 +89,7 @@ async function rankingUpload() {
           dps_ilvl_parse: dpsilvlParse,
           healing_ilvl_parse: healingilvlParse,
           report_id: reportId,
+          log_time: time,
         });
         if (error) {
           console.error(error);
@@ -126,6 +130,7 @@ async function rankingUpload() {
           dps_ilvl_parse: dpsilvlParse,
           healing_ilvl_parse: healingilvlParse,
           report_id: reportId,
+          log_time: time,
         });
         if (error) {
           console.error(error);

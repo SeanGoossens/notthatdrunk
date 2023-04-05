@@ -50,8 +50,12 @@ async function wclData(lookupString) {
     const data = log?.data?.reportData?.report?.table?.data?.deathEvents;
     // console.log(data);
     return data;
+  } else if (lookupString == "time") {
+    const data = log?.data?.reportData?.report?.table?.data?.totalTime;
+    // console.log(data);
+    return data;
   }
 }
-// wclData("deaths");
+// wclData("time");
 
 module.exports = wclData;
