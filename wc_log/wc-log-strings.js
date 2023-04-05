@@ -11,6 +11,14 @@ async function getQueryStrings() {
       name: "dps",
       string: `query { reportData { report ( code: "${latestReportId}") { rankings ( playerMetric: dps ) } } }`,
     },
+    {
+      name: "deaths",
+      string: `query { reportData { report ( code: "${latestReportId}") { table ( startTime: 0, endTime: 99999999, wipeCutoff: 5) } } }`,
+    },
+    {
+      name: "resources",
+      string: `query { reportData { report ( code: "${latestReportId}") { table ( startTime: 0, endTime: 99999999) } } }`,
+    },
   ];
   return queryStrings;
 }

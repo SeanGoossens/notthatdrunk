@@ -3,14 +3,16 @@
 const parseLog = require("./wc_log/parse-log");
 const { createClient } = require("@supabase/supabase-js");
 const { LOCAL_URL, LOCAL_KEY } = require("./config.json");
+const getLatestReportId = require("./wc_log/get-latest-report-id");
 
 const supabase = createClient(
   process.env.SUPABASE_URL || LOCAL_URL,
   process.env.SUPABASE_ANON_KEY || LOCAL_KEY
 );
 
-async function insertData() {
+async function rankingUpload() {
   const test = await parseLog();
+  let latestReportId = await getLatestReportId();
   async function insertTanks() {
     for (let i = 0; i < test.length; i++) {
       for (let x = 0; x < test[i]?.parses?.dps?.tanks.length; x++) {
@@ -28,27 +30,26 @@ async function insertData() {
           ?.bracketPercent;
         const healingilvlParse = await test[i]?.parses?.healing?.tanks[x]
           .bracketPercent;
+        const reportId = latestReportId;
 
-        const { data, error } = await supabase
-          .from("latest_log")
-          .upsert({
-            player_name: player,
-            role: role,
-            encounter: encounter,
-            class: playerClass,
-            spec: spec,
-            dps: dps,
-            hps: hps,
-            dps_parse: dpsParse,
-            healing_parse: healingParse,
-            dps_ilvl_parse: dpsilvlParse,
-            healing_ilvl_parse: healingilvlParse,
-          })
-          .select();
+        const { data, error } = await supabase.from("latest_log").upsert({
+          player_name: player,
+          role: role,
+          encounter: encounter,
+          class: playerClass,
+          spec: spec,
+          dps: dps,
+          hps: hps,
+          dps_parse: dpsParse,
+          healing_parse: healingParse,
+          dps_ilvl_parse: dpsilvlParse,
+          healing_ilvl_parse: healingilvlParse,
+          report_id: reportId,
+        });
         if (error) {
           console.error(error);
         } else {
-          console.log(data);
+          ("Uploading Tank Rankings");
         }
       }
     }
@@ -70,27 +71,26 @@ async function insertData() {
           ?.bracketPercent;
         const healingilvlParse = await test[i]?.parses?.healing?.healers[x]
           .bracketPercent;
+        const reportId = latestReportId;
 
-        const { data, error } = await supabase
-          .from("latest_log")
-          .upsert({
-            player_name: player,
-            role: role,
-            encounter: encounter,
-            class: playerClass,
-            spec: spec,
-            dps: dps,
-            hps: hps,
-            dps_parse: dpsParse,
-            healing_parse: healingParse,
-            dps_ilvl_parse: dpsilvlParse,
-            healing_ilvl_parse: healingilvlParse,
-          })
-          .select();
+        const { data, error } = await supabase.from("latest_log").upsert({
+          player_name: player,
+          role: role,
+          encounter: encounter,
+          class: playerClass,
+          spec: spec,
+          dps: dps,
+          hps: hps,
+          dps_parse: dpsParse,
+          healing_parse: healingParse,
+          dps_ilvl_parse: dpsilvlParse,
+          healing_ilvl_parse: healingilvlParse,
+          report_id: reportId,
+        });
         if (error) {
           console.error(error);
         } else {
-          console.log(data);
+          ("Uploading Healer Rankings");
         }
       }
     }
@@ -111,27 +111,26 @@ async function insertData() {
         const dpsilvlParse = await test[i]?.parses?.dps?.dps[x]?.bracketPercent;
         const healingilvlParse = await test[i]?.parses?.healing?.dps[x]
           .bracketPercent;
+        const reportId = latestReportId;
 
-        const { data, error } = await supabase
-          .from("latest_log")
-          .upsert({
-            player_name: player,
-            role: role,
-            encounter: encounter,
-            class: playerClass,
-            spec: spec,
-            dps: dps,
-            hps: hps,
-            dps_parse: dpsParse,
-            healing_parse: healingParse,
-            dps_ilvl_parse: dpsilvlParse,
-            healing_ilvl_parse: healingilvlParse,
-          })
-          .select();
+        const { data, error } = await supabase.from("latest_log").upsert({
+          player_name: player,
+          role: role,
+          encounter: encounter,
+          class: playerClass,
+          spec: spec,
+          dps: dps,
+          hps: hps,
+          dps_parse: dpsParse,
+          healing_parse: healingParse,
+          dps_ilvl_parse: dpsilvlParse,
+          healing_ilvl_parse: healingilvlParse,
+          report_id: reportId,
+        });
         if (error) {
           console.error(error);
         } else {
-          console.log(data);
+          ("Uploading DPS Rankings");
         }
       }
     }
@@ -142,4 +141,4 @@ async function insertData() {
   insertDps();
 }
 
-insertData();
+module.exports = rankingUpload;

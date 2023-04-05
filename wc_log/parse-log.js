@@ -90,9 +90,8 @@ async function parseLog() {
     }
     encounters.push(newEncounter);
   }
-  console.log(encounters);
+  // console.log(encounters);
   return encounters;
 }
-parseLog();
 
 module.exports = parseLog;

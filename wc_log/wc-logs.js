@@ -38,10 +38,20 @@ async function wclData(lookupString) {
   };
   const response2 = await request(options2);
   const log = JSON.parse(response2.body);
-  const data = log.data.reportData.report.rankings.data;
-  // console.log(data);
-  return data;
+  if (lookupString == "hps" || lookupString == "dps") {
+    const data = log?.data?.reportData?.report?.rankings?.data;
+    // console.log(data);
+    return data;
+  } else if (lookupString == "resources") {
+    const data = log?.data?.reportData?.report?.table?.data?.playerDetails;
+    // console.log(data);
+    return data;
+  } else if (lookupString == "deaths") {
+    const data = log?.data?.reportData?.report?.table?.data?.deathEvents;
+    // console.log(data);
+    return data;
+  }
 }
-// wclData("hps");
+// wclData("deaths");
 
 module.exports = wclData;

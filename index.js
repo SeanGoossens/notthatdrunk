@@ -3,19 +3,22 @@ const app = express();
 const databasePull = require("./database.js");
 const rioUpdate = require("./cron_jobs/guild-members-update.js");
 const cron = require("node-cron");
+
 app.set("view engine", "ejs");
 
-databasePull().then((playerArray) => {
-  app.get("/", function (req, res) {
-    res.render("pages/foundation", {
-      playerArray: playerArray,
-    });
-  });
-});
+// checkLogId();
+// Save for react
+// databasePull().then((playerArray) => {
+//   app.get("/", function (req, res) {
+//     res.render("pages/foundation", {
+//       playerArray: playerArray,
+//     });
+//   });
+// });
 
-app.get("/about", function (req, res) {
-  res.render("pages/about");
-});
+// app.get("/about", function (req, res) {
+//   res.render("pages/about");
+// });
 
 // Start the server
 const PORT = process.env.PORT || 5000;

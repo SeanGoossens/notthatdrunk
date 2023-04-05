@@ -19,6 +19,7 @@
     "morgan": "^1.10.0",
     "motion-ui": "latest",
     "node-cron": "^3.0.2",
+    "node-schedule": "^2.1.1",
     "request": "^2.88.2",
     "what-input": ">=5.2.10"
   }
