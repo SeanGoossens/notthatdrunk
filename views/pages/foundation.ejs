@@ -1,57 +1,55 @@
 <!doctype html>
 <html class="no-js" lang="en">
-  <style>
-    table, th, td {
-      border:1px solid black;
-    }
-    </style>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Not That Drunk</title>
-    <link rel="stylesheet" href="css/app.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foundation Starter Template</title>
+    <!-- <link href="/css/test.css" rel="stylesheet" type="text/css"> -->
+    <link rel="stylesheet" href="node_modules/foundation-sites/dist/css/foundation.css">
+    
+    <style>
+      
+    </style>
+
   </head>
   <body>
-    <div class="grid-container">
-      <div class="grid-x grid-padding-x">
-        <div class="large-12 cell">
-          <h1>Top Not That Drunk M+ Scores</h1>
-        </div>
+    <div>
+    <table>
+      <thead>
+        <tr>
+          <td>Rank</td>
+          <td>Player</td>
+          <td>M+ Score</td>
+          <td>Role</td>
+          <td>Overall Rank</td>
+          <td>Role Rank</td>
+        </tr>
+        <tr>
+        </thead>
+        <tbody>
+             <% for(var i=0; i < playerArray.length; i++) { %>
+              <tr>
+            <td><%= playerArray[i].id %></td>
+            <td><%= playerArray[i].playerName %></td>
+            <td><%= playerArray[i].score %></td>
+            <td><%= playerArray[i].role %></td>
+            <td><%= playerArray[i].overallRank %></td>
+            <td><%= playerArray[i].roleRank %></td>
+          </tr>
+       <% } %>
+      </tbody>
+       </table>
       </div>
       
-      <div class="grid-x grid-padding-x">
-        <div class="large-12 cell">
-          <div class="callout">
-            <table style="width:50%">
-                <tr>
-                  <td>Rank</td>
-                  <td>Player</td>
-                  <td>M+ Score</td>
-                  <td>Role</td>
-                  <td>Overall Rank</td>
-                  <td>Role Rank</td>
-                </tr>
-                <tr>
-                <% for(var i=0; i < playerArray.length; i++) { %>
-                  <tr>
-                    <td><%= playerArray[i].id %></td>
-                    <td><%= playerArray[i].playerName %></td>
-                    <td><%= playerArray[i].score %></td>
-                    <td><%= playerArray[i].role %></td>
-                    <td><%= playerArray[i].overallRank %></td>
-                    <td><%= playerArray[i].roleRank %></td>
-                  </tr>
-               <% } %>
-               </table>
-            
-    
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/what-input.js"></script>
+    <script src="js/vendor/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
 
-      
-
-    <script src="node_modules/jquery/dist/jquery.js"></script>
-    <script src="node_modules/what-input/dist/what-input.js"></script>
-    <script src="node_modules/foundation-sites/dist/js/foundation.js"></script>
-    <script src="js/app.js"></script>
   </body>
 </html>
+
+

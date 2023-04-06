@@ -52,10 +52,10 @@ async function wclData(lookupString) {
     return data;
   } else if (lookupString == "time") {
     const data = log?.data?.reportData?.report?.table?.data?.totalTime;
-    // console.log(data);
+    console.log(data);
     return data;
   }
 }
-// wclData("time");
+wclData("time");
 
 module.exports = wclData;

@@ -8,17 +8,19 @@ app.set("view engine", "ejs");
 
 // checkLogId();
 // Save for react
-// databasePull().then((playerArray) => {
-//   app.get("/", function (req, res) {
-//     res.render("pages/foundation", {
-//       playerArray: playerArray,
-//     });
-//   });
-// });
+databasePull().then((playerArray) => {
+  app.get("/", function (req, res) {
+    res.render("pages/foundation", {
+      playerArray: playerArray,
+    });
+  });
+});
 
-// app.get("/about", function (req, res) {
-//   res.render("pages/about");
-// });
+app.get("/about", function (req, res) {
+  res.render("pages/about");
+});
+
+app.use(express.static(__dirname + "/public"));
 
 // Start the server
 const PORT = process.env.PORT || 5000;
@@ -30,3 +32,5 @@ app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
   console.log("Press Ctrl+C to quit.");
 });
+
+module.exports = app;
