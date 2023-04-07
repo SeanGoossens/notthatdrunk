@@ -1,5 +1,6 @@
 // This file grabs all the relevant columns to prepare for SQL input
-require("dotenv").config();
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const parseLog = require("../wc_log/parse-last-pull-rankings");
 const { createClient } = require("@supabase/supabase-js");
 // const { LOCAL_URL, LOCAL_KEY } = require("../config.json");
