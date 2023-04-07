@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 app.disable("view cache");
+app.set("view cache", false);
 const databasePull = require("./database.js");
 const rioUpdate = require("./cron_jobs/guild-members-update.js");
 const cron = require("node-cron");
@@ -36,13 +37,14 @@ setInterval(async function updateData() {
             resourcesArray: allDatabasePulls.resourcesArray,
             lastPullRankings: allDatabasePulls.lastPullRankings,
             lastPullDeaths: allDatabasePulls.lastPullDeaths,
+            cache: false,
           });
         });
       });
     });
     console.log("Refreshing data");
   });
-}, 5 * 60 * 1000);
+}, 60000);
 
 databasePull().then((allDatabasePulls) => {
   const pagesPath = path.join(__dirname, "views", "pages");
@@ -67,6 +69,7 @@ databasePull().then((allDatabasePulls) => {
           resourcesArray: allDatabasePulls.resourcesArray,
           lastPullRankings: allDatabasePulls.lastPullRankings,
           lastPullDeaths: allDatabasePulls.lastPullDeaths,
+          cache: false,
         });
       });
     });
