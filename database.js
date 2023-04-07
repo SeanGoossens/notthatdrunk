@@ -111,7 +111,7 @@ const databasePull = function () {
     supabase
       .from("last_pull_rankings")
       .select("*")
-      .order("dps_parse", { ascending: false })
+      .order("dps", { ascending: false })
       .then((response) => {
         let lastPullRankings = [];
         for (let i = 0; i < response["data"].length; i++) {

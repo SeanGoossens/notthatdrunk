@@ -1,8 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-app.disable("view cache");
-app.set("view cache", false);
 const databasePull = require("./database.js");
 const rioUpdate = require("./cron_jobs/guild-members-update.js");
 const cron = require("node-cron");
@@ -11,70 +9,49 @@ const path = require("path");
 
 app.set("view engine", "ejs");
 
-// checkLogId();
-// Save for react
-setInterval(async function updateData() {
+const pagesPath = path.join(__dirname, "views", "pages");
+fs.readdir(pagesPath, (err, files) => {
+  if (err) {
+    throw err;
+  }
+
+  console.log("Found the following files in the pages directory:");
+  console.log(files);
+
+  files.forEach((file) => {
+    const fileName = path.basename(file, ".ejs");
+    console.log(`Generating route for ${fileName}`);
+
+    // Change the route to match the desired URL
+    app.get(`/${fileName === "index" ? "" : fileName}`, (req, res) => {
+      console.log(`Rendering ${file}`);
+      res.render(`pages/${fileName}`, {
+        cache: false,
+      });
+    });
+  });
+});
+
+let dataUpdateInterval;
+
+function updateData() {
   databasePull().then((allDatabasePulls) => {
-    const pagesPath = path.join(__dirname, "views", "pages");
-    fs.readdir(pagesPath, (err, files) => {
-      if (err) {
-        throw err;
-      }
-
-      console.log("Found the following files in the pages directory:");
-      console.log(files);
-
-      files.forEach((file) => {
-        const fileName = path.basename(file, ".ejs");
-        console.log(`Generating route for ${fileName}`);
-
-        // Change the route to match the desired URL
-        app.get(`/${fileName === "index" ? "" : fileName}`, (req, res) => {
-          console.log(`Rendering ${file}`);
-          res.render(`pages/${fileName}`, {
-            playerArray: allDatabasePulls.playerArray,
-            deathsArray: allDatabasePulls.deathsArray,
-            resourcesArray: allDatabasePulls.resourcesArray,
-            lastPullRankings: allDatabasePulls.lastPullRankings,
-            lastPullDeaths: allDatabasePulls.lastPullDeaths,
-            cache: false,
-          });
-        });
-      });
-    });
-    console.log("Refreshing data");
+    app.locals.playerArray = allDatabasePulls.playerArray;
+    app.locals.deathsArray = allDatabasePulls.deathsArray;
+    app.locals.resourcesArray = allDatabasePulls.resourcesArray;
+    app.locals.lastPullRankings = allDatabasePulls.lastPullRankings;
+    app.locals.lastPullDeaths = allDatabasePulls.lastPullDeaths;
+    console.log("Data updated");
   });
-}, 60000);
+}
+updateData();
 
-databasePull().then((allDatabasePulls) => {
-  const pagesPath = path.join(__dirname, "views", "pages");
-  fs.readdir(pagesPath, (err, files) => {
-    if (err) {
-      throw err;
-    }
+dataUpdateInterval = setInterval(updateData, 60000);
 
-    console.log("Found the following files in the pages directory:");
-    console.log(files);
-
-    files.forEach((file) => {
-      const fileName = path.basename(file, ".ejs");
-      console.log(`Generating route for ${fileName}`);
-
-      // Change the route to match the desired URL
-      app.get(`/${fileName === "index" ? "" : fileName}`, (req, res) => {
-        console.log(`Rendering ${file}`);
-        res.render(`pages/${fileName}`, {
-          playerArray: allDatabasePulls.playerArray,
-          deathsArray: allDatabasePulls.deathsArray,
-          resourcesArray: allDatabasePulls.resourcesArray,
-          lastPullRankings: allDatabasePulls.lastPullRankings,
-          lastPullDeaths: allDatabasePulls.lastPullDeaths,
-          cache: false,
-        });
-      });
-    });
-  });
-  console.log("Refreshing data");
+// Stop the data update interval when the server is stopped
+process.on("SIGINT", () => {
+  clearInterval(dataUpdateInterval);
+  process.exit();
 });
 
 app.use(express.static(__dirname + "/dist"));
