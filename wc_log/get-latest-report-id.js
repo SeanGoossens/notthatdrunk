@@ -8,8 +8,8 @@ async function getLatestReportId() {
   for (let i = 0; i < reportsResponse.length; i++) {
     if (reportsResponse[i].owner == "Ogzuss") {
       reportId.push(reportsResponse[i].id);
-      // reportId = reportId[0];
-      reportId = "gKbH8WFLf9kyGTJn"; // for testing
+      reportId = reportId[0];
+      // reportId = "gKbH8WFLf9kyGTJn"; // for testing
       return reportId;
     }
   }
