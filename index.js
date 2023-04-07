@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+app.disable("view cache");
 const databasePull = require("./database.js");
 const rioUpdate = require("./cron_jobs/guild-members-update.js");
 const cron = require("node-cron");
@@ -11,7 +12,7 @@ app.set("view engine", "ejs");
 
 // checkLogId();
 // Save for react
-async function updateData() {
+setInterval(async function updateData() {
   databasePull().then((allDatabasePulls) => {
     const pagesPath = path.join(__dirname, "views", "pages");
     fs.readdir(pagesPath, (err, files) => {
@@ -41,15 +42,43 @@ async function updateData() {
     });
     console.log("Refreshing data");
   });
-}
+}, 5 * 60 * 1000);
+
+databasePull().then((allDatabasePulls) => {
+  const pagesPath = path.join(__dirname, "views", "pages");
+  fs.readdir(pagesPath, (err, files) => {
+    if (err) {
+      throw err;
+    }
+
+    console.log("Found the following files in the pages directory:");
+    console.log(files);
+
+    files.forEach((file) => {
+      const fileName = path.basename(file, ".ejs");
+      console.log(`Generating route for ${fileName}`);
+
+      // Change the route to match the desired URL
+      app.get(`/${fileName === "index" ? "" : fileName}`, (req, res) => {
+        console.log(`Rendering ${file}`);
+        res.render(`pages/${fileName}`, {
+          playerArray: allDatabasePulls.playerArray,
+          deathsArray: allDatabasePulls.deathsArray,
+          resourcesArray: allDatabasePulls.resourcesArray,
+          lastPullRankings: allDatabasePulls.lastPullRankings,
+          lastPullDeaths: allDatabasePulls.lastPullDeaths,
+        });
+      });
+    });
+  });
+  console.log("Refreshing data");
+});
 
 app.use(express.static(__dirname + "/dist"));
 
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  updateData();
-  setInterval(updateData, 5 * 60 * 1000);
   cron.schedule("55 * * * *", () => {
     //55 minutes after the hour, to allow for processing before it's pulled on the hour
     rioUpdate();

@@ -10,41 +10,57 @@ async function getQueryStrings() {
     {
       name: "hps",
       string: `query { reportData { report ( code: "${latestReportId}") { rankings ( playerMetric: hps ) } } }`,
+      code: latestReportId,
     },
     {
       name: "dps",
       string: `query { reportData { report ( code: "${latestReportId}") { rankings ( playerMetric: dps ) } } }`,
+      code: latestReportId,
     },
     {
       name: "hpsLastPull",
       string: `query { reportData { report ( code: "${latestReportId}") { rankings ( playerMetric: hps, fightIDs: [${latestFightId}]) } } }`,
+      code: latestReportId,
     },
     {
       name: "dpsLastPull",
       string: `query { reportData { report ( code: "${latestReportId}") { rankings ( playerMetric: dps, fightIDs: [${latestFightId}]) } } }`,
+      code: latestReportId,
     },
     {
       name: "deaths",
       string: `query { reportData { report ( code: "${latestReportId}") { table ( startTime: 0, endTime: 9999999999, wipeCutoff: 5) } } }`,
+      code: latestReportId,
     },
     {
       name: "deathsLastPull",
       string: `query { reportData { report ( code: "${latestReportId}") { table ( startTime: 0, endTime: 9999999999, wipeCutoff: 5, fightIDs: [${latestFightId}]) } } }`,
+      code: latestReportId,
     },
     {
       name: "resources",
       string: `query { reportData { report ( code: "${latestReportId}") { zone { name}, table ( startTime: 0, endTime: 9999999999) } } }`,
+      code: latestReportId,
     },
     {
       name: "time",
       string: `query { reportData { report ( code: "${latestReportId}") { table ( startTime: 0, endTime: 9999999999) } } }`,
+      code: latestReportId,
     },
     {
       name: "last",
       string: `query { reportData { report ( code: "${latestReportId}") { fights { encounterID, fightPercentage, endTime, id, kill }  } } }`,
+      code: latestReportId,
+    },
+    {
+      name: "encounters",
+      string: `query { reportData { report ( code: "${latestReportId}") { code, fights { encounterID, fightPercentage, endTime, id, kill, gameZone { name } }  } } }`,
+      code: latestReportId,
     },
   ];
+  // console.log(queryStrings);
   return queryStrings;
 }
+// getQueryStrings();
 
 module.exports = getQueryStrings;

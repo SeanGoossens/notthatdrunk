@@ -11,36 +11,37 @@ const supabase = createClient(
 );
 
 async function encountersUpload() {
-  const data = await parseEncounters();
-
-  for (let i = 0; i < data.length; i++) {
-    const encounterId = await data[i]?.encounterID; // Player name
-    const fightPercentage = await data[i]?.fightPercentage; // The max item level of the character
-    const endTime = await data[i]?.endTime; // Amount of potions consumed by the player
-    const id = await data[i]?.id; // Amount of healthstones consumed by the player
-    const kill = await data[i]?.kill; // Amount of healthstones consumed by the player
-    const gameZone = await data[i]?.gameZone.name; // Amount of healthstones consumed by the player
+  const data = await parseEncounters("encounters");
+  // console.log(data);
+  for (let i = 0; i < data.fights.length; i++) {
+    const encounterId = await data?.fights[i]?.encounterID; // Player name
+    const fightPercentage = await data?.fights[i]?.fightPercentage; // The max item level of the character
+    const endTime = await data?.fights[i]?.endTime; // Amount of potions consumed by the player
+    const id = await data?.fights[i]?.id; // Amount of healthstones consumed by the player
+    const kill = await data?.fights[i]?.kill; // Amount of healthstones consumed by the player
+    const gameZone = await data?.fights[i]?.gameZone.name; // Amount of healthstones consumed by the player
+    const reportId = await data?.code;
 
     const { data: responseData, error } = await supabase
       .from("encounters")
-      .upsert(
-        {
-          encounter_id: encounterId,
-          fight_percentage: fightPercentage,
-          end_time: endTime,
-          fight_id: id,
-          kill: kill,
-          game_zone: gameZone,
-        },
-        { onConflict: "end_time" }
-      );
+      .upsert({
+        encounter_id: encounterId,
+        fight_percentage: fightPercentage,
+        end_time: endTime,
+        fight_id: id,
+        kill: kill,
+        game_zone: gameZone,
+        report_id: reportId,
+      });
     if (error) {
       console.error(error);
     } else {
-      ("Uploading Encounter Data");
+      ("Got new encounter data");
     }
   }
 }
-// encountersUpload();
+console.log("Got new encounter data");
+
+encountersUpload();
 
 module.exports = encountersUpload;

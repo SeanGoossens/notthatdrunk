@@ -4,7 +4,6 @@ require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const { createClient } = require("@supabase/supabase-js");
 // const { LOCAL_URL, LOCAL_KEY } = require("../config.json");
-const encountersUpload = require("../uploads/encounters-upload");
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
@@ -12,7 +11,6 @@ const supabase = createClient(
 );
 
 async function getLatestFightId() {
-  await encountersUpload();
   // Remove non-raid logs
   const { encounters, encountersError } = await supabase
     .from("encounters")

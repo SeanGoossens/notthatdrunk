@@ -1,11 +1,13 @@
 require("dotenv").config();
 var createError = require("http-errors");
 var express = require("express");
+
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var indexRouter = require("./index");
 var app = express();
+app.disable("view cache");
 
 // view engine setup
 

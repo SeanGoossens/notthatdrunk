@@ -2,6 +2,7 @@ require("dotenv").config();
 const getLatestReportId = require("./wc_log/get-latest-report-id");
 const lastPullDeathsUpload = require("./uploads/last-pull-deaths-upload");
 const lastPullRankingsUpload = require("./uploads/last-pull-rankings-upload");
+const encountersUpload = require("./uploads/encounters-upload");
 const resourceUpload = require("./uploads/resource-upload");
 const wclData = require("./wc_log/wc-logs");
 
@@ -15,16 +16,6 @@ const supabase = createClient(
 
 // Function to delete all rows from the respective tables if there's a new log, or if the log has new updates
 async function deleteAllRows() {
-  const { encounters, encountersError } = await supabase
-    .from("encounters")
-    .delete()
-    .neq("player_name", "DELETE");
-  if (encountersError) {
-    console.error(encountersError);
-  } else {
-    console.log(`Deleted all rows from encounters`);
-  }
-
   // Delete from resources table
   const { resources, resourcesError } = await supabase
     .from("resources")
@@ -83,7 +74,7 @@ setInterval(async function () {
       console.log("Log time is the same - no updates.");
     } else {
       // This runs if a new time is detected
-
+      await encountersUpload();
       await deleteAllRows();
       await lastPullDeathsUpload();
       await lastPullRankingsUpload();
@@ -92,10 +83,12 @@ setInterval(async function () {
     }
   } else {
     // This runs if a new log is detected
+    await encountersUpload();
     await deleteAllRows();
     await lastPullDeathsUpload();
     await lastPullRankingsUpload();
     await resourceUpload();
+
     console.log("Deleted old databases, updated databases with new log");
   }
 }, 60000); // This runs every 5 minutes

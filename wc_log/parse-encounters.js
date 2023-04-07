@@ -3,10 +3,23 @@ const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const util = require("util");
 const request = util.promisify(require("request"));
-const getLatestReportId = require("./get-latest-report-id");
+const getQueryStrings = require("./wc-log-strings");
+const { createClient } = require("@supabase/supabase-js");
 
-async function encounters() {
-  let latestReportId = await getLatestReportId();
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_ANON_KEY
+);
+
+async function encounters(lookupString) {
+  const allQueryStrings = await getQueryStrings();
+  const stringLookup = lookupString;
+  function findString(string) {
+    return string.name === stringLookup;
+  }
+
+  const queryString = allQueryStrings.find(findString).string;
+
   const options = {
     method: "POST",
     url: "https://www.warcraftlogs.com/oauth/token",
@@ -28,15 +41,31 @@ async function encounters() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      query: `query { reportData { report ( code: "${latestReportId}") { fights { encounterID, fightPercentage, endTime, id, kill, gameZone { name } }  } } }`,
+      query: queryString,
     }),
   };
   const response2 = await request(options2);
   const log = JSON.parse(response2.body);
-  const data = log?.data?.reportData?.report?.fights;
+  const code = log?.data?.reportData?.report?.code;
+  const fights = log?.data?.reportData?.report?.fights;
+  const data = {
+    code: code,
+    fights: fights,
+  };
+
+  const { encountersTable, encountersError } = await supabase
+    .from("encounters")
+    .delete()
+    .neq("report_id", data.code);
+
+  if (encountersError) {
+    console.error(encountersError);
+  } else {
+    console.log("Deleted Encounters");
+  }
   // console.log(data);
   return data;
 }
-// encounters();
+// encounters("encounters");
 
 module.exports = encounters;
