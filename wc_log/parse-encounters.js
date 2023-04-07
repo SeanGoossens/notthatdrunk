@@ -1,4 +1,5 @@
 // const { WCLOGS_AUTH } = require("../config.json");
+require("dotenv").config();
 const util = require("util");
 const request = util.promisify(require("request"));
 const getLatestReportId = require("./get-latest-report-id");

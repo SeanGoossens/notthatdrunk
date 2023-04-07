@@ -1,5 +1,6 @@
 // This is to update the supabase with all Not That Drunk members
 
+require("dotenv").config();
 const { createClient } = require("@supabase/supabase-js");
 // const { LOCAL_URL, LOCAL_KEY } = require("./config.json");
 

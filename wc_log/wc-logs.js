@@ -1,4 +1,5 @@
 // const { WCLOGS_AUTH } = require("../config.json");
+require("dotenv").config();
 const getQueryStrings = require("./wc-log-strings");
 const util = require("util");
 const request = util.promisify(require("request"));

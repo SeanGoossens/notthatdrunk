@@ -1,5 +1,5 @@
 // This file grabs all the relevant columns to prepare for SQL input
-
+require("dotenv").config();
 const parseLog = require("../wc_log/parse-log");
 const { createClient } = require("@supabase/supabase-js");
 // const { LOCAL_URL, LOCAL_KEY } = require("../config.json");

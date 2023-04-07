@@ -1,3 +1,4 @@
+require("dotenv").config();
 const wclData = require("./wc-logs");
 
 async function parseDeaths() {

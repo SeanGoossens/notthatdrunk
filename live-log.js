@@ -1,3 +1,4 @@
+require("dotenv").config();
 const getLatestReportId = require("./wc_log/get-latest-report-id");
 const lastPullDeathsUpload = require("./uploads/last-pull-deaths-upload");
 const lastPullRankingsUpload = require("./uploads/last-pull-rankings-upload");

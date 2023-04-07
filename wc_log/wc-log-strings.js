@@ -1,3 +1,4 @@
+require("dotenv").config();
 const getLatestReportId = require("./get-latest-report-id");
 const getLatestFightId = require("./get-latest-fight-id");
 
