@@ -1,5 +1,5 @@
-const { AUTH_V1 } = require("../config.json");
-const ntdURL = `https://www.warcraftlogs.com:443/v1/reports/guild/Not%20That%20Drunk/emerald-dream/US?api_key=${AUTH_V1}`;
+// const { AUTH_V1 } = require("../config.json");
+const ntdURL = `https://www.warcraftlogs.com:443/v1/reports/guild/Not%20That%20Drunk/emerald-dream/US?api_key=${process.env.AUTH_V1}`;
 
 async function getLatestReportId() {
   const ntdReports = await fetch(ntdURL);

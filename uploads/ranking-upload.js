@@ -2,13 +2,13 @@
 
 const parseLog = require("../wc_log/parse-log");
 const { createClient } = require("@supabase/supabase-js");
-const { LOCAL_URL, LOCAL_KEY } = require("../config.json");
+// const { LOCAL_URL, LOCAL_KEY } = require("../config.json");
 const getLatestReportId = require("../wc_log/get-latest-report-id");
 const wclData = require("../wc_log/wc-logs");
 
 const supabase = createClient(
-  process.env.SUPABASE_URL || LOCAL_URL,
-  process.env.SUPABASE_ANON_KEY || LOCAL_KEY
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_ANON_KEY
 );
 
 async function rankingUpload() {

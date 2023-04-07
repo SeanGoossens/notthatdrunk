@@ -1,16 +1,15 @@
 const getLatestReportId = require("./wc_log/get-latest-report-id");
-const encountersUpload = require("./uploads/encounters-upload");
 const lastPullDeathsUpload = require("./uploads/last-pull-deaths-upload");
 const lastPullRankingsUpload = require("./uploads/last-pull-rankings-upload");
 const resourceUpload = require("./uploads/resource-upload");
 const wclData = require("./wc_log/wc-logs");
 
 const { createClient } = require("@supabase/supabase-js");
-const { LOCAL_URL, LOCAL_KEY } = require("./config.json");
+// const { LOCAL_URL, LOCAL_KEY } = require("./config.json");
 
 const supabase = createClient(
-  process.env.SUPABASE_URL || LOCAL_URL,
-  process.env.SUPABASE_ANON_KEY || LOCAL_KEY
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_ANON_KEY
 );
 
 // Function to delete all rows from the respective tables if there's a new log, or if the log has new updates

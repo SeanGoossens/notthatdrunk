@@ -1,9 +1,9 @@
 const { createClient } = require("@supabase/supabase-js");
-const { LOCAL_URL, LOCAL_KEY } = require("./config.json");
+// const { LOCAL_URL, LOCAL_KEY } = require("./config.json");
 
 const supabase = createClient(
-  process.env.SUPABASE_URL || LOCAL_URL,
-  process.env.SUPABASE_ANON_KEY || LOCAL_KEY
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_ANON_KEY
 );
 
 const databasePull = function () {

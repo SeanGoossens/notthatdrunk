@@ -1,4 +1,4 @@
-const { WCLOGS_AUTH } = require("../config.json");
+// const { WCLOGS_AUTH } = require("../config.json");
 const util = require("util");
 const request = util.promisify(require("request"));
 const getLatestReportId = require("./get-latest-report-id");
@@ -9,7 +9,7 @@ async function encounters() {
     method: "POST",
     url: "https://www.warcraftlogs.com/oauth/token",
     headers: {
-      Authorization: `Basic ${WCLOGS_AUTH}`,
+      Authorization: `Basic ${process.env.WCLOGS_AUTH}`,
       "Content-Type": "application/x-www-form-urlencoded",
     },
     form: {

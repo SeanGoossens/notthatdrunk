@@ -1,4 +1,4 @@
-const { WCLOGS_AUTH } = require("../config.json");
+// const { WCLOGS_AUTH } = require("../config.json");
 const getQueryStrings = require("./wc-log-strings");
 const util = require("util");
 const request = util.promisify(require("request"));
@@ -16,7 +16,7 @@ async function wclData(lookupString) {
     method: "POST",
     url: "https://www.warcraftlogs.com/oauth/token",
     headers: {
-      Authorization: `Basic ${WCLOGS_AUTH}`,
+      Authorization: `Basic ${process.env.WCLOGS_AUTH}`,
       "Content-Type": "application/x-www-form-urlencoded",
     },
     form: {
