@@ -578,10 +578,11 @@ nav.tab-selector {
 }
 
 @media screen and (min-width: 550px) {
-  .row-2 {
-    grid-template-columns: repeat(2, 1fr);
+  .row-1-live {
+    grid-template-columns: repeat(1, 1fr);
+    display: flex;
   }
-  .row-3 {
+  .row-2-live {
     display: grid;
   }
 }

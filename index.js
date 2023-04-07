@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const databasePull = require("./database.js");
@@ -24,7 +25,8 @@ databasePull().then((allDatabasePulls) => {
       const fileName = path.basename(file, ".ejs");
       console.log(`Generating route for ${fileName}`);
 
-      app.get(`/${fileName}`, (req, res) => {
+      // Change the route to match the desired URL
+      app.get(`/${fileName === "index" ? "" : fileName}`, (req, res) => {
         console.log(`Rendering ${file}`);
         res.render(`pages/${fileName}`, {
           playerArray: allDatabasePulls.playerArray,
