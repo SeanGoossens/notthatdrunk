@@ -580,7 +580,7 @@ nav.tab-selector {
 @media screen and (min-width: 550px) {
   .row-2-live {
     grid-template-columns: repeat(2, 1fr);
-    display: flex;
+    display: grid;
   }
   .row-3-live {
     display: grid;
