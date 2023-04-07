@@ -30,6 +30,8 @@ databasePull().then((allDatabasePulls) => {
           playerArray: allDatabasePulls.playerArray,
           deathsArray: allDatabasePulls.deathsArray,
           resourcesArray: allDatabasePulls.resourcesArray,
+          lastPullRankings: allDatabasePulls.lastPullRankings,
+          lastPullDeaths: allDatabasePulls.lastPullDeaths,
         });
       });
     });

@@ -26,13 +26,13 @@ async function encounters() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      query: `query { reportData { report ( code: "${latestReportId}") { fights { encounterID, fightPercentage, endTime, id, kill }  } } }`,
+      query: `query { reportData { report ( code: "${latestReportId}") { fights { encounterID, fightPercentage, endTime, id, kill, gameZone { name } }  } } }`,
     }),
   };
   const response2 = await request(options2);
   const log = JSON.parse(response2.body);
   const data = log?.data?.reportData?.report?.fights;
-
+  // console.log(data);
   return data;
 }
 // encounters();

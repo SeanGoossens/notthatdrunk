@@ -126,7 +126,7 @@ const databasePull = function () {
         allDatabasePulls["lastPullRankings"] = lastPullRankings;
       }),
   ]).then(() => {
-    console.log(allDatabasePulls);
+    // console.log(allDatabasePulls);
     return allDatabasePulls;
   });
 };

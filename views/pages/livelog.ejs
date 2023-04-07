@@ -53,7 +53,16 @@
               <span>Highest DPS Parse</span>
             </div>
             <h1 class="number-fs">
-              69
+              <% var highestParse = 0; %>
+              <% var playerName = ''; %>
+              <% for(var i=0; i < lastPullRankings.length; i++) { %>
+              <% if (lastPullRankings[i].dpsParse > highestParse) { %>
+              <% highestParse = lastPullRankings[i].dpsParse; %>
+              <% playerName = lastPullRankings[i].playerName; %>
+              <% } %>
+              <% } %>
+              <%= playerName %><p>
+              <%= highestParse %>
             </h1>
           </div>
           <div class="stat-box">
@@ -61,7 +70,16 @@
               Highest DPS
             </div>
             <h1 class="number-fs">
-              69
+              <% var playerName = ''; %>
+              <% var highestDps = 0; %>
+              <% for(var i=0; i < lastPullRankings.length; i++) { %>
+              <% if (lastPullRankings[i].dps > highestDps) { %>
+              <% highestDps = lastPullRankings[i].dps; %>
+              <% playerName = lastPullRankings[i].playerName; %>
+              <% } %>
+              <% } %>
+              <%= playerName %><p>
+              <%= highestDps %>
             </h1>
           </div>
           <div class="stat-box">
@@ -69,7 +87,16 @@
               Lowest DPS Parse
             </div>
             <h1 class="number-fs">
-              0
+              <% var lowestParse = 100; %>
+              <% var playerName = ''; %>
+              <% for(var i=0; i < lastPullRankings.length; i++) { %>
+              <% if (lastPullRankings[i].dpsParse < lowestParse) { %>
+              <% lowestParse = lastPullRankings[i].dpsParse; %>
+              <% playerName = lastPullRankings[i].playerName; %>
+              <% } %>
+              <% } %>
+              <%= playerName %><p>
+              <%= lowestParse %>
             </h1>
           </div>
           <div class="stat-box">
@@ -77,46 +104,22 @@
               Lowest DPS
             </div>
             <h1 class="number-fs">
-              69%
+              <% var lowestDps = 9999999; %>
+              <% var playerName = ''; %>
+              <% for(var i=0; i < lastPullRankings.length; i++) { %>
+              <% if (lastPullRankings[i].dps < lowestDps) { %>
+              <% lowestDps = lastPullRankings[i].dps; %>
+              <% playerName = lastPullRankings[i].playerName; %>
+              <% } %>
+              <% } %>
+              <%= playerName %><p>
+              <%= lowestDps %>
             </h1>
           </div>
         </div>
 
 
-        <div class="row-2-live">
-          <div class="stat-box">
-            <div class="stat-title">
-              <span>Keys Completed</span>
-            </div>
-            <h1 class="number-fs">
-              69
-            </h1>
-          </div>
-          <div class="stat-box">
-            <div class="stat-title">
-              Bosses Killed
-            </div>
-            <h1 class="number-fs">
-              69
-            </h1>
-          </div>
-          <div class="stat-box">
-            <div class="stat-title">
-              Fucks Given
-            </div>
-            <h1 class="number-fs">
-              0
-            </h1>
-          </div>
-          <div class="stat-box">
-            <div class="stat-title">
-              Idk
-            </div>
-            <h1 class="number-fs">
-              69%
-            </h1>
-          </div>
-        </div>
+      
 
 
         <!-- Row 4 - Devices -->
@@ -159,7 +162,7 @@
       </main>
       <aside class="side-bar">
         <div class="side-bar-header">
-          <h3>Raid Death Log</h3>
+          <h3>Last Pull Death Log</h3>
         </div>
         <div class="flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -176,11 +179,11 @@
                     <tbody>
                       <tr
                         class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
-                        <% for(var i=0; i < deathsArray.length; i++) { %>
+                        <% for(var i=0; i < lastPullDeaths.length; i++) { %>
                           <tr class="hover">
-                        <td class="whitespace-nowrap px-6 py-4 font-medium"><%= deathsArray[i].playerName %></td>
-                        <td class="whitespace-nowrap px-6 py-4"><%= deathsArray[i].deathTime %> minutes</td>
-                        <td class="whitespace-nowrap px-6 py-4"><%= deathsArray[i].killedBy %></td>
+                        <td class="whitespace-nowrap px-6 py-4 font-medium"><%= lastPullDeaths[i].playerName %></td>
+                        <td class="whitespace-nowrap px-6 py-4"><%= lastPullDeaths[i].deathTime %> minutes</td>
+                        <td class="whitespace-nowrap px-6 py-4"><%= lastPullDeaths[i].killedBy %></td>
                       </tr>
                    <% } %>
         
@@ -190,6 +193,45 @@
               </div>
             </div>
           </div>
+        </aside>
+          <bottomtable>
+          <div class="table-right">
+            <div class="side-bar-header">
+              <h3>Last Pull Parses</h3>
+            </div>
+            <div class="flex flex-col">
+                <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                  <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                    <div class="overflow-hidden">
+                      <table class="min-w-full text-left text-sm font-light">
+                        <thead class="border-b font-medium dark:border-neutral-500">
+                          <tr>
+                            <th scope="col" class="px-6 py-4 ">Player</th>
+                            <th scope="col" class="px-6 py-4">DPS</th>
+                            <th scope="col" class="px-6 py-4">HPS</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                            class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
+                            <% for(var i=0; i < lastPullRankings.length; i++) { %>
+                              <tr class="hover">
+                            <td class="whitespace-nowrap px-6 py-4 font-medium"><%= lastPullRankings[i].playerName %></td>
+                            <td class="whitespace-nowrap px-6 py-4"><%= lastPullRankings[i].dps %></td>
+                            <td class="whitespace-nowrap px-6 py-4"><%= lastPullRankings[i].hps %></td>
+                          </tr>
+                       <% } %>
+            
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </bottomtable>
+          
+          
     <script src="./script.js"></script>
   </body>
 </html>

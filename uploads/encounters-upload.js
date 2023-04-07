@@ -18,16 +18,21 @@ async function encountersUpload() {
     const endTime = await data[i]?.endTime; // Amount of potions consumed by the player
     const id = await data[i]?.id; // Amount of healthstones consumed by the player
     const kill = await data[i]?.kill; // Amount of healthstones consumed by the player
+    const gameZone = await data[i]?.gameZone.name; // Amount of healthstones consumed by the player
 
     const { data: responseData, error } = await supabase
       .from("encounters")
-      .upsert({
-        encounter_id: encounterId,
-        fight_percentage: fightPercentage,
-        end_time: endTime,
-        fight_id: id,
-        kill: kill,
-      });
+      .upsert(
+        {
+          encounter_id: encounterId,
+          fight_percentage: fightPercentage,
+          end_time: endTime,
+          fight_id: id,
+          kill: kill,
+          game_zone: gameZone,
+        },
+        { onConflict: "end_time" }
+      );
     if (error) {
       console.error(error);
     } else {

@@ -9,7 +9,7 @@ async function getLatestReportId() {
     if (reportsResponse[i].owner == "Ogzuss") {
       reportId.push(reportsResponse[i].id);
       // reportId = reportId[0];
-      reportId = "v8rpmxKTQdNDAzf4"; // for testing
+      reportId = "gKbH8WFLf9kyGTJn"; // for testing
       return reportId;
     }
   }

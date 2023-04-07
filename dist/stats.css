@@ -177,6 +177,16 @@ nav.tab-selector {
   background-color: rgb(255, 255, 255);
   color: var(--dark-blue);
 }
+.table-right {
+  grid-area: aside;
+  /* width: 400px; */
+  margin-top: 10px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  color: var(--dark-blue);
+}
 
 .side-bar-header {
   display: flex;
@@ -590,7 +600,7 @@ nav.tab-selector {
     grid-template-areas:
       "main main aside"
       "main main aside"
-      "main main aside"
-      "main main aside";
+      "main main bottomtable"
+      "main main bottomtable";
   }
 }
