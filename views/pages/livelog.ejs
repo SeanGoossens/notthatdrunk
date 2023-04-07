@@ -39,7 +39,6 @@
     </nav>
 
     <div class="main-layout">
-      <!-- <h1><%= lastPullRankings[0].encounter %></h1> -->
       <main class="main">
         <!-- Row 1 -->
 
@@ -53,10 +52,10 @@
             <h1 class="number-fs">
               <% var highestParse = 0; %>
               <% var playerName = ''; %>
-              <% for(var i=0; i < lastPullRankings.length; i++) { %>
-              <% if (lastPullRankings[i].dpsParse > highestParse) { %>
-              <% highestParse = lastPullRankings[i].dpsParse; %>
-              <% playerName = lastPullRankings[i].playerName; %>
+              <% for(var i=0; i < lastPullRankings?.length; i++) { %>
+              <% if (lastPullRankings[i]?.dpsParse > highestParse) { %>
+              <% highestParse = lastPullRankings[i]?.dpsParse; %>
+              <% playerName = lastPullRankings[i]?.playerName; %>
               <% } %>
               <% } %>
               <b><%= playerName %></b><p>
@@ -70,10 +69,10 @@
             <h1 class="number-fs">
               <% var playerName = ''; %>
               <% var highestDps = 0; %>
-              <% for(var i=0; i < lastPullRankings.length; i++) { %>
-              <% if (lastPullRankings[i].dps > highestDps) { %>
-              <% highestDps = lastPullRankings[i].dps; %>
-              <% playerName = lastPullRankings[i].playerName; %>
+              <% for(var i=0; i < lastPullRankings?.length; i++) { %>
+              <% if (lastPullRankings[i]?.dps > highestDps) { %>
+              <% highestDps = lastPullRankings[i]?.dps; %>
+              <% playerName = lastPullRankings[i]?.playerName; %>
               <% } %>
               <% } %>
               <b><%= playerName %></b><p>
@@ -88,9 +87,9 @@
               <% var lowestParse = 100; %>
               <% var playerName = ''; %>
               <% for(var i=0; i < lastPullRankings.length; i++) { %>
-              <% if (lastPullRankings[i].dpsParse < lowestParse) { %>
-              <% lowestParse = lastPullRankings[i].dpsParse; %>
-              <% playerName = lastPullRankings[i].playerName; %>
+              <% if (lastPullRankings[i]?.dpsParse < lowestParse) { %>
+              <% lowestParse = lastPullRankings[i]?.dpsParse; %>
+              <% playerName = lastPullRankings[i]?.playerName; %>
               <% } %>
               <% } %>
               <b><%= playerName %></b><p>
@@ -105,10 +104,10 @@
               <% var lowestDps = 9999999; %>
               <% var playerName = ''; %>
               <% for(var i=0; i < lastPullRankings.length; i++) { %>
-              <% if (lastPullRankings[i].role !== 'Tank' && lastPullRankings[i].role !== 'Healer') { %>
-              <% if (lastPullRankings[i].dps < lowestDps) { %>
-              <% lowestDps = lastPullRankings[i].dps; %>
-              <% playerName = lastPullRankings[i].playerName; %>
+              <% if (lastPullRankings[i]?.role !== 'Tank' && lastPullRankings[i]?.role !== 'Healer') { %>
+              <% if (lastPullRankings[i]?.dps < lowestDps) { %>
+              <% lowestDps = lastPullRankings[i]?.dps; %>
+              <% playerName = lastPullRankings[i]?.playerName; %>
               <% } %>
               <% } %>
               <% } %>
@@ -145,9 +144,9 @@
                         class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
                         <% for(var i=0; i < resourcesArray.length; i++) { %>
                           <tr class="hover">
-                        <td class="whitespace-nowrap px-6 py-4 font-medium"><%= resourcesArray[i].playerName %></td>
-                        <td class="whitespace-nowrap px-6 py-4"><%= resourcesArray[i].potions %></td>
-                        <td class="whitespace-nowrap px-6 py-4"><%= resourcesArray[i].healthstones %></td>
+                        <td class="whitespace-nowrap px-6 py-4 font-medium"><%= resourcesArray[i]?.playerName %></td>
+                        <td class="whitespace-nowrap px-6 py-4"><%= resourcesArray[i]?.potions %></td>
+                        <td class="whitespace-nowrap px-6 py-4"><%= resourcesArray[i]?.healthstones %></td>
                       </tr>
                    <% } %>
         
@@ -181,9 +180,9 @@
                         class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
                         <% for(var i=0; i < lastPullDeaths.length; i++) { %>
                           <tr class="hover">
-                        <td class="whitespace-nowrap px-6 py-4 font-medium"><%= lastPullDeaths[i].playerName %></td>
-                        <td class="whitespace-nowrap px-6 py-4"><%= lastPullDeaths[i].deathTime %> minutes</td>
-                        <td class="whitespace-nowrap px-6 py-4"><%= lastPullDeaths[i].killedBy %></td>
+                        <td class="whitespace-nowrap px-6 py-4 font-medium"><%= lastPullDeaths[i]?.playerName %></td>
+                        <td class="whitespace-nowrap px-6 py-4"><%= lastPullDeaths[i]?.deathTime %> minutes</td>
+                        <td class="whitespace-nowrap px-6 py-4"><%= lastPullDeaths[i]?.killedBy %></td>
                       </tr>
                    <% } %>
         
@@ -218,11 +217,11 @@
                             class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
                             <% for(var i=0; i < lastPullRankings.length; i++) { %>
                               <tr class="hover">
-                            <td class="whitespace-nowrap px-6 py-4 font-medium"><%= lastPullRankings[i].playerName %></td>
-                            <td class="whitespace-nowrap px-6 py-4"><%= (lastPullRankings[i].dps).toLocaleString() %></td>
-                            <td class="whitespace-nowrap px-6 py-4"><%= lastPullRankings[i].dpsParse %></td>
-                            <td class="whitespace-nowrap px-6 py-4"><%= (lastPullRankings[i].hps).toLocaleString() %></td>
-                            <td class="whitespace-nowrap px-6 py-4"><%= lastPullRankings[i].healingParse %></td>
+                            <td class="whitespace-nowrap px-6 py-4 font-medium"><%= lastPullRankings[i]?.playerName %></td>
+                            <td class="whitespace-nowrap px-6 py-4"><%= (lastPullRankings[i]?.dps).toLocaleString() %></td>
+                            <td class="whitespace-nowrap px-6 py-4"><%= lastPullRankings[i]?.dpsParse %></td>
+                            <td class="whitespace-nowrap px-6 py-4"><%= (lastPullRankings[i]?.hps).toLocaleString() %></td>
+                            <td class="whitespace-nowrap px-6 py-4"><%= lastPullRankings[i]?.healingParse %></td>
                           </tr>
                        <% } %>
             
