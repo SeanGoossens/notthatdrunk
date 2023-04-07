@@ -349,6 +349,24 @@ nav.tab-selector {
   padding: 20px;
 }
 
+.boss-box {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  color: var(--dark-blue);
+  background-color: #ffffff;
+  border-radius: 10px;
+  height: 100%;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  text-align: center;
+}
+
+.boss-box h1 {
+  align-items: center;
+}
 .stat-box-bad {
   padding: 5px;
   width: 100%;
@@ -580,7 +598,6 @@ nav.tab-selector {
 @media screen and (min-width: 550px) {
   .row-2-live {
     grid-template-columns: repeat(2, 1fr);
-    display: grid;
   }
   .row-3-live {
     display: grid;

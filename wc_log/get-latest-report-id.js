@@ -12,8 +12,8 @@ async function getLatestReportId() {
     if (reportsResponse[i].owner == "Ogzuss") {
       reportId.push(reportsResponse[i].id);
       // reportId = reportId[0];
-      // reportId = "gKbH8WFLf9kyGTJn"; // for testing
-      reportId = "KL4CqPVnc9FzXAQj"; // for testing
+      reportId = "gKbH8WFLf9kyGTJn"; // for testing
+      // reportId = "cjwykD6C93KXgfZP"; // for testing
       // console.log(reportId);
       return reportId;
     }
