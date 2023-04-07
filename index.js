@@ -3,24 +3,40 @@ const app = express();
 const databasePull = require("./database.js");
 const rioUpdate = require("./cron_jobs/guild-members-update.js");
 const cron = require("node-cron");
+const fs = require("fs");
+const path = require("path");
 
 app.set("view engine", "ejs");
 
 // checkLogId();
 // Save for react
-databasePull().then((playerArray) => {
-  app.get("/", function (req, res) {
-    res.render("pages/foundation", {
-      playerArray: playerArray,
+databasePull().then((allDatabasePulls) => {
+  const pagesPath = path.join(__dirname, "views", "pages");
+  fs.readdir(pagesPath, (err, files) => {
+    if (err) {
+      throw err;
+    }
+
+    console.log("Found the following files in the pages directory:");
+    console.log(files);
+
+    files.forEach((file) => {
+      const fileName = path.basename(file, ".ejs");
+      console.log(`Generating route for ${fileName}`);
+
+      app.get(`/${fileName}`, (req, res) => {
+        console.log(`Rendering ${file}`);
+        res.render(`pages/${fileName}`, {
+          playerArray: allDatabasePulls.playerArray,
+          deathsArray: allDatabasePulls.deathsArray,
+          resourcesArray: allDatabasePulls.resourcesArray,
+        });
+      });
     });
   });
 });
 
-app.get("/about", function (req, res) {
-  res.render("pages/about");
-});
-
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/dist"));
 
 // Start the server
 const PORT = process.env.PORT || 5000;

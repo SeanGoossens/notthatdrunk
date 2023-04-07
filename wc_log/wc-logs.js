@@ -38,7 +38,12 @@ async function wclData(lookupString) {
   };
   const response2 = await request(options2);
   const log = JSON.parse(response2.body);
-  if (lookupString == "hps" || lookupString == "dps") {
+  if (
+    lookupString == "hps" ||
+    lookupString == "dps" ||
+    lookupString == "hpsLastPull" ||
+    lookupString == "dpsLastPull"
+  ) {
     const data = log?.data?.reportData?.report?.rankings?.data;
     // console.log(data);
     return data;
@@ -46,16 +51,20 @@ async function wclData(lookupString) {
     const data = log?.data?.reportData?.report?.table?.data?.playerDetails;
     // console.log(data);
     return data;
-  } else if (lookupString == "deaths") {
+  } else if (lookupString == "deaths" || lookupString == "deathsLastPull") {
     const data = log?.data?.reportData?.report?.table?.data?.deathEvents;
     // console.log(data);
     return data;
   } else if (lookupString == "time") {
     const data = log?.data?.reportData?.report?.table?.data?.totalTime;
-    console.log(data);
+    // console.log(data);
+    return data;
+  } else if (lookupString == "last") {
+    const data = log?.data?.reportData?.report?.fights;
+    // console.log(data);
     return data;
   }
 }
-wclData("time");
+// wclData("hpsLastPull");
 
 module.exports = wclData;

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Statistic Dashboard</title>
+    <link rel="stylesheet" href="/stats.css" />
+    <link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/all.min.css">
+  </head>
+  <body>
+    <!-- nav bar -->
+    <nav class="nav-bar">
+        <a href="https://www.warcraftlogs.com/guild/id/566479" class="menu-link"><span>Warcraft Logs</span></a>
+        <a href="https://raider.io/guilds/us/emerald-dream/Not%20That%20Drunk" class="menu-link"><span>Raider IO</span></a>
+        <a href="https://subcreation.net/" class="menu-link"><span>Subcreation</span></a>
+        <a href="https://docs.google.com/spreadsheets/d/15kwSNS6_cpc4i789g7VmPhNQ-fAwswOUu9CFWpRejxk/edit#gid=241918221" class="menu-link"><span>Raid Team Spreadsheet</span></a>
+
+    </nav>
+
+    <!-- Side menu for small display -->
+    <aside class="menu" id="menu">
+      <div class="menu-header">
+        <h1>Menu</h1>
+        <button class="close-menu">
+          <img src="./img/close.svg" alt="close-menu" />
+        </button>
+      </div>
+      <div class="menu-links">
+        <a href="/index" class="menu-link"><span>Home</span></a>
+        <a href="/livelog" class="menu-link"><span>Live Log</span></a>
+        <a href="#mplus" class="menu-link"><span>M+</span></a>
+      </div>
+    </aside>
+
+    <nav class="tab-selector">
+      <div>
+        <a href="/index" class="tab-select">Home</a>
+        <a href="/livelog" class="tab-select selected-tab">Live Log</a>
+        <a href="#mplus" class="tab-select">M+</a>
+      </div>
+    </nav>
+
+    <div class="main-layout">
+      <main class="main">
+        <!-- Row 1 -->
+
+
+        <!-- Row 2 - main stats -->
+        <div class="row-1-live">
+          <div class="stat-box">
+            <div class="stat-title">
+              <span>Highest DPS Parse</span>
+            </div>
+            <h1 class="number-fs">
+              69
+            </h1>
+          </div>
+          <div class="stat-box">
+            <div class="stat-title">
+              Highest DPS
+            </div>
+            <h1 class="number-fs">
+              69
+            </h1>
+          </div>
+          <div class="stat-box">
+            <div class="stat-title">
+              Lowest DPS Parse
+            </div>
+            <h1 class="number-fs">
+              0
+            </h1>
+          </div>
+          <div class="stat-box">
+            <div class="stat-title">
+              Lowest DPS
+            </div>
+            <h1 class="number-fs">
+              69%
+            </h1>
+          </div>
+        </div>
+
+
+        <div class="row-2-live">
+          <div class="stat-box">
+            <div class="stat-title">
+              <span>Keys Completed</span>
+            </div>
+            <h1 class="number-fs">
+              69
+            </h1>
+          </div>
+          <div class="stat-box">
+            <div class="stat-title">
+              Bosses Killed
+            </div>
+            <h1 class="number-fs">
+              69
+            </h1>
+          </div>
+          <div class="stat-box">
+            <div class="stat-title">
+              Fucks Given
+            </div>
+            <h1 class="number-fs">
+              0
+            </h1>
+          </div>
+          <div class="stat-box">
+            <div class="stat-title">
+              Idk
+            </div>
+            <h1 class="number-fs">
+              69%
+            </h1>
+          </div>
+        </div>
+
+
+        <!-- Row 4 - Devices -->
+        <div class="table-left">
+        
+        <div class="side-bar-header">
+          <h3>Total Raid Resource Usage</h3>
+        </div>
+        <div class="flex flex-col">
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div class="overflow-hidden">
+                  <table class="min-w-full text-left text-sm font-light">
+                    <thead class="border-b font-medium dark:border-neutral-500">
+                      <tr>
+                        <th scope="col" class="px-6 py-4 ">Player</th>
+                        <th scope="col" class="px-6 py-4">Potions Used</th>
+                        <th scope="col" class="px-6 py-4">Healthstones Used</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
+                        <% for(var i=0; i < resourcesArray.length; i++) { %>
+                          <tr class="hover">
+                        <td class="whitespace-nowrap px-6 py-4 font-medium"><%= resourcesArray[i].playerName %></td>
+                        <td class="whitespace-nowrap px-6 py-4"><%= resourcesArray[i].potions %></td>
+                        <td class="whitespace-nowrap px-6 py-4"><%= resourcesArray[i].healthstones %></td>
+                      </tr>
+                   <% } %>
+        
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+      </main>
+      <aside class="side-bar">
+        <div class="side-bar-header">
+          <h3>Raid Death Log</h3>
+        </div>
+        <div class="flex flex-col">
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div class="overflow-hidden">
+                  <table class="min-w-full text-left text-sm font-light">
+                    <thead class="border-b font-medium dark:border-neutral-500">
+                      <tr>
+                        <th scope="col" class="px-6 py-4 ">Player</th>
+                        <th scope="col" class="px-6 py-4">Pull Death Time</th>
+                        <th scope="col" class="px-6 py-4">Cause</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
+                        <% for(var i=0; i < deathsArray.length; i++) { %>
+                          <tr class="hover">
+                        <td class="whitespace-nowrap px-6 py-4 font-medium"><%= deathsArray[i].playerName %></td>
+                        <td class="whitespace-nowrap px-6 py-4"><%= deathsArray[i].deathTime %> minutes</td>
+                        <td class="whitespace-nowrap px-6 py-4"><%= deathsArray[i].killedBy %></td>
+                      </tr>
+                   <% } %>
+        
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+    <script src="./script.js"></script>
+  </body>
+</html>

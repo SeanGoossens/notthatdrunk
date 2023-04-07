@@ -1,8 +1,8 @@
 // This file grabs all the relevant columns to prepare for SQL input
 
-const parseDeaths = require("./wc_log/parse-deaths");
+const parseDeaths = require("../wc_log/parse-deaths");
 const { createClient } = require("@supabase/supabase-js");
-const { LOCAL_URL, LOCAL_KEY } = require("./config.json");
+const { LOCAL_URL, LOCAL_KEY } = require("../config.json");
 
 const supabase = createClient(
   process.env.SUPABASE_URL || LOCAL_URL,
@@ -14,7 +14,7 @@ async function deathsUpload() {
   //   console.log(data);
   for (let i = 0; i < data.length; i++) {
     const player = await data[i]?.name;
-    const deathTime = (await data[i]?.time) / 60000;
+    const deathTime = ((await data[i]?.time) / 60000).toFixed(2);
     const ability = await data[i]?.ability;
 
     const { data: responseData, error } = await supabase.from("deaths").upsert({

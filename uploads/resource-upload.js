@@ -1,8 +1,8 @@
 // This file grabs all the relevant columns to prepare for SQL input
 
-const parseResources = require("./wc_log/parse-resources");
+const parseResources = require("../wc_log/parse-resources");
 const { createClient } = require("@supabase/supabase-js");
-const { LOCAL_URL, LOCAL_KEY } = require("./config.json");
+const { LOCAL_URL, LOCAL_KEY } = require("../config.json");
 
 const supabase = createClient(
   process.env.SUPABASE_URL || LOCAL_URL,

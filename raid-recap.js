@@ -1,8 +1,10 @@
 const getLatestReportId = require("./wc_log/get-latest-report-id");
 const encountersUpload = require("./uploads/encounters-upload");
+const deathsUpload = require("./uploads/deaths-upload");
 const lastPullDeathsUpload = require("./uploads/last-pull-deaths-upload");
 const lastPullRankingsUpload = require("./uploads/last-pull-rankings-upload");
 const resourceUpload = require("./uploads/resource-upload");
+const rankingUpload = require("./uploads/ranking-upload");
 const wclData = require("./wc_log/wc-logs");
 
 const { createClient } = require("@supabase/supabase-js");
@@ -39,13 +41,13 @@ async function deleteAllRows() {
 
   // Delete from ranking table
   const { ranking, rankingError } = await supabase
-    .from("last_pull_rankings")
+    .from("latest_log")
     .delete()
     .neq("player_name", "DELETE");
   if (rankingError) {
     console.error(rankingError);
   } else {
-    console.log(`Deleted all rows from last_pull_rankings`);
+    console.log(`Deleted all rows from latest_log`);
   }
 }
 
@@ -78,6 +80,7 @@ setInterval(async function () {
       await lastPullDeathsUpload();
       await lastPullRankingsUpload();
       await resourceUpload();
+      await rankingUpload();
       console.log("Deleted old databases, updated databases with new log");
     }
   } else {
@@ -87,6 +90,7 @@ setInterval(async function () {
     await lastPullDeathsUpload();
     await lastPullRankingsUpload();
     await resourceUpload();
+    await rankingUpload();
     console.log("Deleted old databases, updated databases with new log");
   }
 }, 300000); // This runs every 5 minutes
