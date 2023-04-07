@@ -57,7 +57,9 @@ const databasePull = function () {
     supabase
       .from("resources")
       .select("*")
-      // .order("death_time", { ascending: true })
+      .order("potions", { ascending: false })
+      .order("healthstones", { ascending: false })
+      .order("player_name", { ascending: true })
       .then((response) => {
         let resourcesArray = [];
         for (let i = 0; i < response["data"].length; i++) {
@@ -108,7 +110,7 @@ const databasePull = function () {
     supabase
       .from("last_pull_rankings")
       .select("*")
-      // .order("death_time", { ascending: true })
+      .order("dps_parse", { ascending: false })
       .then((response) => {
         let lastPullRankings = [];
         for (let i = 0; i < response["data"].length; i++) {

@@ -33,5 +33,6 @@ async function resourceUpload() {
     }
   }
 }
+// resourceUpload();
 
 module.exports = resourceUpload;

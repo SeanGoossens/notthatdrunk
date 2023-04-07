@@ -2,7 +2,7 @@ const wclData = require("./wc-logs");
 
 async function parseResources() {
   const resources = await wclData("resources");
-  // console.log(resources.tanks);
+  // console.log(resources.tanks[0].combatantInfo);
   let encounters = [];
 
   // Resources

@@ -161,7 +161,7 @@ nav.tab-selector {
   grid-area: aside;
   /* width: 400px; */
   width: 100%;
-  padding: 20px;
+  padding: 22.5px;
   border-radius: 10px;
   background-color: white;
   color: var(--dark-blue);
@@ -170,7 +170,7 @@ nav.tab-selector {
 .table-left {
   grid-area: aside;
   /* width: 400px; */
-  margin-top: 20px;
+  /* margin-top: 0px; */
   width: 100%;
   padding: 20px;
   border-radius: 10px;
@@ -178,9 +178,9 @@ nav.tab-selector {
   color: var(--dark-blue);
 }
 .table-right {
-  grid-area: aside;
+  /* grid-area: aside; */
   /* width: 400px; */
-  margin-top: 10px;
+  /* margin-top: 10px; */
   width: 100%;
   padding: 20px;
   border-radius: 10px;
@@ -327,6 +327,7 @@ nav.tab-selector {
 
 .row-1-live {
   display: grid;
+  margin-bottom: 15px;
   gap: 15px;
   grid-template-columns: repeat(1, 1fr);
 }
@@ -342,7 +343,26 @@ nav.tab-selector {
   padding: 5px;
   width: 100%;
   color: var(--dark-blue);
-  background-color: white;
+  background-color: #ffffff;
+  border-radius: 10px;
+  max-height: 100%;
+  padding: 20px;
+}
+
+.stat-box-bad {
+  padding: 5px;
+  width: 100%;
+  color: var(--dark-blue);
+  background-color: #f88383;
+  border-radius: 10px;
+  max-height: 100%;
+  padding: 20px;
+}
+.stat-box-good {
+  padding: 5px;
+  width: 100%;
+  color: var(--dark-blue);
+  background-color: #77a7a0;
   border-radius: 10px;
   max-height: 100%;
   padding: 20px;
