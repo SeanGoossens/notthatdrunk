@@ -50,7 +50,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   updateData();
   setInterval(updateData, 5 * 60 * 1000);
-  location.reload();
   cron.schedule("55 * * * *", () => {
     //55 minutes after the hour, to allow for processing before it's pulled on the hour
     rioUpdate();
