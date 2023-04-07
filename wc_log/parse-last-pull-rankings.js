@@ -92,7 +92,7 @@ async function parseLastPullRankings() {
     }
     encounters.push(newEncounter);
   }
-  console.log(encounters);
+  // console.log(encounters);
   return encounters;
 }
 

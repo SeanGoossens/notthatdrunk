@@ -12,6 +12,7 @@ const supabase = createClient(
 );
 
 async function getLatestFightId() {
+  await encountersUpload();
   // Remove non-raid logs
   const { encounters, encountersError } = await supabase
     .from("encounters")

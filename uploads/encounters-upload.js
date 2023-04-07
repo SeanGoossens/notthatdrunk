@@ -4,7 +4,7 @@ require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const parseEncounters = require("../wc_log/parse-encounters");
 const { createClient } = require("@supabase/supabase-js");
 // const { LOCAL_URL, LOCAL_KEY } = require("../config.json");
-console.log(process.env);
+// console.log(process.env);
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_ANON_KEY

@@ -67,6 +67,6 @@ async function wclData(lookupString) {
     return data;
   }
 }
-// wclData("hpsLastPull");
+// wclData("dpsLastPull");
 
 module.exports = wclData;

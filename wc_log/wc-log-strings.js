@@ -33,7 +33,7 @@ async function getQueryStrings() {
     },
     {
       name: "resources",
-      string: `query { reportData { report ( code: "${latestReportId}") { zone { name}, table ( startTime: 0, endTime: 9999999999, fightIDs: [${latestFightId}]) } } }`,
+      string: `query { reportData { report ( code: "${latestReportId}") { zone { name}, table ( startTime: 0, endTime: 9999999999) } } }`,
     },
     {
       name: "time",

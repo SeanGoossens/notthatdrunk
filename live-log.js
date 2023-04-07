@@ -98,4 +98,4 @@ setInterval(async function () {
     await resourceUpload();
     console.log("Deleted old databases, updated databases with new log");
   }
-}, 300000); // This runs every 5 minutes
+}, 60000); // This runs every 5 minutes
