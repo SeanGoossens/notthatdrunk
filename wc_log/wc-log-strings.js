@@ -57,6 +57,16 @@ async function getQueryStrings() {
       string: `query { reportData { report ( code: "${latestReportId}") { code, fights { encounterID, fightPercentage, endTime, id, kill, gameZone { name } }  } } }`,
       code: latestReportId,
     },
+    {
+      name: "wipe",
+      string: `query { reportData { report ( code: "${latestReportId}") { code, fights { encounterID, fightPercentage, endTime, id, kill, gameZone { name } }  } } }`,
+      code: latestReportId,
+    },
+    {
+      name: "test",
+      string: `query { reportData { report ( code: "${latestReportId}") { rankings ( playerMetric: dps ) } } }`,
+      code: latestReportId,
+    },
   ];
   // console.log(queryStrings);
   return queryStrings;

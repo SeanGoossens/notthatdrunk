@@ -41,6 +41,8 @@ function updateData() {
     app.locals.resourcesArray = allDatabasePulls.resourcesArray;
     app.locals.lastPullRankings = allDatabasePulls.lastPullRankings;
     app.locals.lastPullDeaths = allDatabasePulls.lastPullDeaths;
+    app.locals.lastPullEncounter = allDatabasePulls.lastPullEncounter;
+    // console.log(app.locals.lastPullEncounter);
     console.log("Data updated");
   });
 }

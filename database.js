@@ -118,6 +118,7 @@ const databasePull = function () {
           let newObject = {};
           (newObject.id = i + 1),
             (newObject.playerName = response["data"][i].player_name),
+            (newObject.reportId = response["data"][i].report_id),
             (newObject.role = response["data"][i].role),
             (newObject.encounter = response["data"][i].encounter),
             (newObject.dps = response["data"][i].dps),
@@ -127,6 +128,24 @@ const databasePull = function () {
             lastPullRankings.push(newObject);
         }
         allDatabasePulls["lastPullRankings"] = lastPullRankings;
+      }),
+
+    supabase
+      .from("encounters")
+      .select("*")
+      .gt("encounter_id", 0)
+      .order("fight_id", { ascending: false })
+      .limit(1)
+      .then((response) => {
+        let lastPullEncounter = [];
+        for (let i = 0; i < response["data"].length; i++) {
+          let newObject = {};
+          (newObject.id = i + 1),
+            (newObject.kill = response["data"][i].kill),
+            (newObject.fightPercentage = response["data"][i].fight_percentage),
+            lastPullEncounter.push(newObject);
+        }
+        allDatabasePulls["lastPullEncounter"] = lastPullEncounter;
       }),
   ]).then(() => {
     // console.log(allDatabasePulls);

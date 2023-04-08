@@ -65,8 +65,12 @@ async function wclData(lookupString) {
     const data = log?.data?.reportData?.report?.fights;
     // console.log(data);
     return data;
+  } else if (lookupString == "test") {
+    const data = log?.data?.reportData?.report?.rankings;
+    console.log(data);
+    return data;
   }
 }
-// wclData("dpsLastPull");
+wclData("test");
 
 module.exports = wclData;

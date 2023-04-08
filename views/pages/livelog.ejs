@@ -37,10 +37,25 @@
         <a href="#mplus" class="tab-select">M+</a>
       </div>
     </nav>
-    <div class="boss-box">
-      <h1><%= lastPullRankings[0].encounter %>
+
+    <% if(lastPullEncounter[0].kill){ %>
+      <div class="boss-box">
+        <h1><%= lastPullRankings[0].encounter %> </h1><p>
+        </p><h2>✅ Kill ✅</h2><p>
+          <a href="https://www.warcraftlogs.com/reports/<%= lastPullRankings[0].reportId %>" class="button">Warcraft Logs Link</a>
+        </p>
+        
+        </div>
+    <% } else { %>  
+      <div class="boss-box">
+      <h1><%= lastPullRankings[0].encounter %> <p>
+        </p><h2>lastPullEncounter[0].fightPercentage</h2>
+        <a href="https://www.warcraftlogs.com/reports/<%= lastPullRankings[0].reportId %>" class="button">Warcraft Logs Link</a>
+      </p>
       </h1>
     </div>
+   <% } %>
+  
     <div class="main-layout">
       
       <main class="main">
