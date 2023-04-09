@@ -1,5 +1,6 @@
 // This is to update the supabase with all Not That Drunk members
-
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const { createClient } = require("@supabase/supabase-js");
 // const { LOCAL_URL, LOCAL_KEY } = require("../config.json");
 

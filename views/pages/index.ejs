@@ -48,70 +48,71 @@
         <div class="row-1">
           <div class="box active-users">
             <h2 class="box-title">
-              Active Members
+              NTD Members with KSM
             </h2>
-            <h1 class="number-fs">72</h1>
+            <%
+            function countPlayersAboveScore(players, score) {
+            var count = 0;
+            for(var i=0; i < players.length; i++) {
+              if(players[i].score > score) {
+              count++;
+                    }
+                    }
+              return count;
+              }
+
+              var playerCount = countPlayersAboveScore(playerArray, 1999);
+              %>
+              
+            <h1 class="number-ksm">
+              
+              <%= playerCount %>
+            </h1>
           </div>
           <div class="box page-views">
-            <h2 class="box-title">Keys completed per day</h2>
+            <h2 class="box-title">Keys completed this week</h2>
             <div class="graph">
-              <div aria-label="66 page views" style="height: 66%;"></div>
-              <div aria-label="18 page views" style="height: 18%;"></div>
-              <div aria-label="34 page views" style="height: 34%;"></div>
-              <div aria-label="75 page views" style="height: 75%;"></div>
-              <div aria-label="15 page views" style="height: 15%;"></div>
-              <div aria-label="94 page views" style="height: 94%;"></div>
-              <div aria-label="95 page views" style="height: 95%;"></div>
-              <div aria-label="17 page views" style="height: 17%;"></div>
-              <div aria-label="32 page views" style="height: 32%;"></div>
-              <div aria-label="76 page views" style="height: 76%;"></div>
-              <div aria-label="80 page views" style="height: 80%;"></div>
-              <div aria-label="89 page views" style="height: 89%;"></div>
-              <div aria-label="63 page views" style="height: 63%;"></div>
-              <div aria-label="36 page views" style="height: 36%;"></div>
-              <div aria-label="82 page views" style="height: 82%;"></div>
-              <div aria-label="10 page views" style="height: 10%;"></div>
-              <div aria-label="27 page views" style="height: 27%;"></div>
-              <div aria-label="19 page views" style="height: 19%;"></div>
-              <div aria-label="5 page views" style="height: 5%;"></div>
-              <div aria-label="59 page views" style="height: 59%;"></div>
-              <div aria-label="18 page views" style="height: 18%;"></div>
+              <div class="bar" aria-label="3" style="height: 30%;">
+                <div class="label">Tue</div>
+              </div>
+              <div class="bar" aria-label="4" style="height: 40%;">
+                <div class="label">Wed</div>
+              </div>
+              <div class="bar" aria-label="5" style="height: 50%;">
+                <div class="label">Thu</div>
+              </div>
+              <div class="bar" aria-label="6" style="height: 60%;">
+                <div class="label">Fri</div>
+              </div>
+              <div class="bar" aria-label="7" style="height: 70%;">
+                <div class="label">Sat</div>
+              </div>
+              <div class="bar" aria-label="8" style="height: 80%;">
+                <div class="label">Sun</div>
+              </div>
+              <div class="bar" aria-label="9" style="height: 90%;">
+                <div class="label">Mon</div>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Row 2 - main stats -->
-        <div class="row-2">
+        <div class="row-2-live">
           <div class="stat-box">
-            <div class="stat-title">
-              <span>Keys Completed</span>
+            <div class="box-title">
+              <span>ATSC Normal</span>
             </div>
             <h1 class="number-fs">
-              69
+              <%= progress.normal_bosses_killed %>/9
             </h1>
           </div>
           <div class="stat-box">
-            <div class="stat-title">
-              Bosses Killed
+            <div class="box-title">
+              ATSC Heroic
             </div>
             <h1 class="number-fs">
-              69
-            </h1>
-          </div>
-          <div class="stat-box">
-            <div class="stat-title">
-              Fucks Given
-            </div>
-            <h1 class="number-fs">
-              0
-            </h1>
-          </div>
-          <div class="stat-box">
-            <div class="stat-title">
-              Idk
-            </div>
-            <h1 class="number-fs">
-              69%
+              <%= progress.heroic_bosses_killed %>/9
             </h1>
           </div>
         </div>
@@ -119,34 +120,92 @@
 
         <!-- Row 4 - Devices -->
         <div class="row-4">
-    
           <div class="box device-box">
-            <div class="box-title">Wipes</div>
+            <div class="box-title">Normal Wipes</div>
             <div class="reference-details">
               <div class="reference">
-                <span>Broodkeeper Diurna</span>
-                <span>12</span>
+                <span>Kazzara, the Hellforged</span>
+                <span>0</span>
               </div>
               <div class="reference">
-                <span>Eranog</span>
-                <span>1</span>
+                <span>Molgoth</span>
+                <span>0</span>
               </div>
               <div class="reference">
-                <span>Your Mother</span>
-                <span>69</span>
+                <span>The Forgotten Experiments</span>
+                <span>0</span>
               </div>
               <div class="reference">
-                <span>Obama</span>
-                <span>420</span>
+                <span>Rashok, the Elder</span>
+                <span>0</span>
               </div>
               <div class="reference">
-                <span>Razageth</span>
-                <span>2</span>
+                <span>Assault of the Zaqali</span>
+                <span>0</span>
+              </div>
+              <div class="reference">
+                <span>The Vigilant Steward, Zskarn</span>
+                <span>0</span>
+              </div>
+              <div class="reference">
+                <span>Magmorax</span>
+                <span>0</span>
+              </div>
+              <div class="reference">
+                <span>Echo of Neltharion</span>
+                <span>0</span>
+              </div>
+              <div class="reference">
+                <span>Scalecommander Sarkareth</span>
+                <span>0</span>
+              </div>
+            </div>
+          </div>
+          <div class="box device-box">
+            <div class="box-title">Heroic Wipes</div>
+            <div class="reference-details">
+              <div class="reference">
+                <span>Kazzara, the Hellforged</span>
+                <span>0</span>
+              </div>
+              <div class="reference">
+                <span>Molgoth</span>
+                <span>0</span>
+              </div>
+              <div class="reference">
+                <span>The Forgotten Experiments</span>
+                <span>0</span>
+              </div>
+              <div class="reference">
+                <span>Rashok, the Elder</span>
+                <span>0</span>
+              </div>
+              <div class="reference">
+                <span>Assault of the Zaqali</span>
+                <span>0</span>
+              </div>
+              <div class="reference">
+                <span>The Vigilant Steward, Zskarn</span>
+                <span>0</span>
+              </div>
+              <div class="reference">
+                <span>Magmorax</span>
+                <span>0</span>
+              </div>
+              <div class="reference">
+                <span>Echo of Neltharion</span>
+                <span>0</span>
+              </div>
+              <div class="reference">
+                <span>Scalecommander Sarkareth</span>
+                <span>0</span>
               </div>
             </div>
           </div>
         </div>
+        
       </main>
+      
       <aside class="side-bar">
         <div class="side-bar-header">
           <h3>Not That Drunk Top M+ Scores</h3>

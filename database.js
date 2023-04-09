@@ -1,5 +1,6 @@
 require("dotenv").config();
 const { createClient } = require("@supabase/supabase-js");
+const progression = require("./guild/progression.js");
 // const { LOCAL_URL, LOCAL_KEY } = require("./config.json");
 
 const supabase = createClient(
@@ -7,9 +8,10 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY
 );
 
-const databasePull = function () {
+const databasePull = async function () {
+  let progress = await progression();
   let allDatabasePulls = {};
-
+  allDatabasePulls["progress"] = progress;
   return Promise.all([
     supabase
       .from("io")
@@ -148,7 +150,7 @@ const databasePull = function () {
         allDatabasePulls["lastPullEncounter"] = lastPullEncounter;
       }),
   ]).then(() => {
-    // console.log(allDatabasePulls);
+    // console.log(allDatabasePulls.progress);
     return allDatabasePulls;
   });
 };

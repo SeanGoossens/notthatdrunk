@@ -42,6 +42,7 @@ function updateData() {
     app.locals.lastPullRankings = allDatabasePulls.lastPullRankings;
     app.locals.lastPullDeaths = allDatabasePulls.lastPullDeaths;
     app.locals.lastPullEncounter = allDatabasePulls.lastPullEncounter;
+    app.locals.progress = allDatabasePulls.progress;
     // console.log(app.locals.lastPullEncounter);
     console.log("Data updated");
   });
