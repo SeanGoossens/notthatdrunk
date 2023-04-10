@@ -170,7 +170,7 @@ nav.tab-selector {
 .table-left {
   grid-area: aside;
   /* width: 400px; */
-  /* margin-top: 0px; */
+  margin-top: 20px;
   width: 100%;
   padding: 20px;
   border-radius: 10px;

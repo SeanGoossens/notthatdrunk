@@ -97,6 +97,46 @@
           </div>
         </div>
 
+        <div class="table-left">
+          <div class="side-bar-header">
+            <h3>Top M+ Runs</h3>
+          </div>
+          <div class="flex flex-col">
+              <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                  <div class="overflow-hidden">
+                    <table class="min-w-full text-left text-sm font-light">
+                      <thead class="border-b font-medium dark:border-neutral-500">
+                        <tr>
+                          <th scope="col" class="px-6 py-4 ">Rank</th>
+                          <th scope="col" class="px-6 py-4">Player</th>
+                          <th scope="col" class="px-6 py-4">Dungeon</th>
+                          <th scope="col" class="px-6 py-4">Key Level</th>
+                          <th scope="col" class="px-6 py-4">Upgrade</th>
+                          <th scope="col" class="px-6 py-4">Day of the Week</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
+                          <% for(var i=0; i < 10; i++) { %>
+                            <tr class="hover">
+                          <td class="whitespace-nowrap px-6 py-4 font-medium"><%= weeklyRuns[i].id %></td>
+                          <td class="whitespace-nowrap px-6 py-4"><%= weeklyRuns[i].playerName %></td>
+                          <td class="whitespace-nowrap px-6 py-4"><%= weeklyRuns[i].shortName %></td>
+                          <td class="whitespace-nowrap px-6 py-4"><%= weeklyRuns[i].keyLevel %></td>
+                          <td class="whitespace-nowrap px-6 py-4">+<%= weeklyRuns[i].keyUpgrade %></td>
+                          <td class="whitespace-nowrap px-6 py-4"><%= weeklyRuns[i].date %></td>
+                        </tr>
+                     <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
         <!-- Row 2 - main stats -->
         <div class="row-2-live">
           <div class="stat-box">
@@ -208,7 +248,7 @@
       
       <aside class="side-bar">
         <div class="side-bar-header">
-          <h3>Not That Drunk Top M+ Scores</h3>
+          <h3>Top M+ Scores</h3>
         </div>
         <div class="flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">

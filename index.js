@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const databasePull = require("./database.js");
 const rioUpdate = require("./cron_jobs/guild-members-update.js");
+const weeklyRuns = require("./cron_jobs/weekly-runs.js");
 const cron = require("node-cron");
 const fs = require("fs");
 const path = require("path");
@@ -42,6 +43,7 @@ function updateData() {
     app.locals.lastPullRankings = allDatabasePulls.lastPullRankings;
     app.locals.lastPullDeaths = allDatabasePulls.lastPullDeaths;
     app.locals.lastPullEncounter = allDatabasePulls.lastPullEncounter;
+    app.locals.weeklyRuns = allDatabasePulls.weeklyRuns;
     app.locals.progress = allDatabasePulls.progress;
     // console.log(app.locals.lastPullEncounter);
     console.log("Data updated");
@@ -62,9 +64,14 @@ app.use(express.static(__dirname + "/dist"));
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  cron.schedule("55 * * * *", () => {
+  cron.schedule("0 */4 * * *", () => {
     //55 minutes after the hour, to allow for processing before it's pulled on the hour
     rioUpdate();
+  });
+
+  cron.schedule("0 */6 * * *", () => {
+    //55 minutes after the hour, to allow for processing before it's pulled on the hour
+    weeklyRuns();
   });
   console.log(`App listening on port ${PORT}`);
   console.log("Press Ctrl+C to quit.");

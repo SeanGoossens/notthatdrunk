@@ -8,12 +8,12 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY
 );
 
-async function dungeonRuns() {
+async function weeklyRuns() {
   const { data, error } = await supabase
     .from("io")
     .select("player_name")
     .order("score", { ascending: false })
-    .limit(40);
+    .limit(50);
   //   console.log(data);
   let members = [];
   for (i = 0; i < data.length; i++) {
@@ -21,20 +21,35 @@ async function dungeonRuns() {
     //   console.log(rioURL);
     let rioRequest = await fetch(rioURL);
     let rioResponse = await rioRequest.json();
-    // console.log(rioResponse);
+    console.log(rioResponse);
     for (
       x = 0;
       x < rioResponse?.mythic_plus_weekly_highest_level_runs.length;
       x++
     ) {
+      const weekdayNames = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+      const dateString =
+        rioResponse?.mythic_plus_weekly_highest_level_runs[x]?.completed_at;
+      const date = new Date(dateString);
+      const dayOfWeek = date.getDay();
+      const weekdayText = weekdayNames[dayOfWeek];
+
       let character = {
         name: rioResponse.name,
-        dungeons:
-          rioResponse?.mythic_plus_weekly_highest_level_runs[x]?.dungeon,
+        dungeon: rioResponse?.mythic_plus_weekly_highest_level_runs[x]?.dungeon,
+        shortName:
+          rioResponse?.mythic_plus_weekly_highest_level_runs[x]?.short_name,
         keyLevel:
           rioResponse?.mythic_plus_weekly_highest_level_runs[x]?.mythic_level,
-        date: rioResponse?.mythic_plus_weekly_highest_level_runs[x]
-          ?.completed_at,
+        date: weekdayText,
         keyUpgrade:
           rioResponse?.mythic_plus_weekly_highest_level_runs[x]
             ?.num_keystone_upgrades,
@@ -42,12 +57,28 @@ async function dungeonRuns() {
         url: rioResponse?.mythic_plus_weekly_highest_level_runs[x]?.url,
       };
       //   console.log(character);
-      members.push(character);
+      const { data, error } = await supabase
+        .from("weekly_runs")
+        .upsert(
+          {
+            player_name: character.name,
+            dungeon: character.dungeon,
+            short_name: character.shortName,
+            key_level: character.keyLevel,
+            date: character.date,
+            key_upgrade: character.keyUpgrade,
+            score: character.score,
+            url: character.url,
+          },
+          { onConflict: "url" }
+        )
+        .select();
+      // members.push(character);
     }
   }
   //   console.log(members);
 }
 
-dungeonRuns();
+// weeklyRuns();
 
-module.exports = dungeonRuns;
+module.exports = weeklyRuns;

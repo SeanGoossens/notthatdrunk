@@ -149,6 +149,28 @@ const databasePull = async function () {
         }
         allDatabasePulls["lastPullEncounter"] = lastPullEncounter;
       }),
+
+    supabase
+      .from("weekly_runs")
+      .select("*")
+      .order("score", { ascending: false })
+      .limit(10)
+      .then((response) => {
+        let weeklyRuns = [];
+        for (let i = 0; i < response["data"].length; i++) {
+          let newObject = {};
+          (newObject.id = i + 1),
+            (newObject.playerName = response["data"][i].player_name),
+            (newObject.dungeon = response["data"][i].dungeon),
+            (newObject.shortName = response["data"][i].short_name),
+            (newObject.keyUpgrade = response["data"][i].key_upgrade),
+            (newObject.keyLevel = response["data"][i].key_level),
+            (newObject.date = response["data"][i].date),
+            (newObject.url = response["data"][i].url),
+            weeklyRuns.push(newObject);
+        }
+        allDatabasePulls["weeklyRuns"] = weeklyRuns;
+      }),
   ]).then(() => {
     // console.log(allDatabasePulls.progress);
     return allDatabasePulls;
