@@ -4,6 +4,7 @@ const app = express();
 const databasePull = require("./database.js");
 const rioUpdate = require("./cron_jobs/guild-members-update.js");
 const weeklyRuns = require("./cron_jobs/weekly-runs.js");
+const weeklyReset = require("./cron_jobs/weekly-reset.js");
 const cron = require("node-cron");
 const fs = require("fs");
 const path = require("path");
@@ -72,6 +73,11 @@ app.listen(PORT, () => {
   cron.schedule("0 */2 * * *", () => {
     //55 minutes after the hour, to allow for processing before it's pulled on the hour
     weeklyRuns();
+  });
+
+  cron.schedule("0 8 * * 2", () => {
+    //55 minutes after the hour, to allow for processing before it's pulled on the hour
+    weeklyReset();
   });
   console.log(`App listening on port ${PORT}`);
   console.log("Press Ctrl+C to quit.");

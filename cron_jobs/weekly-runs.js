@@ -57,26 +57,23 @@ async function weeklyRuns() {
         url: rioResponse?.mythic_plus_weekly_highest_level_runs[x]?.url,
       };
       //   console.log(character);
-      const { data, error } = await supabase
-        .from("weekly_runs")
-        .upsert(
-          {
-            player_name: character.name,
-            dungeon: character.dungeon,
-            short_name: character.shortName,
-            key_level: character.keyLevel,
-            date: character.date,
-            key_upgrade: character.keyUpgrade,
-            score: character.score,
-            url: character.url,
-          },
-          { onConflict: "url" }
-        )
-        .select();
+      const { data, error } = await supabase.from("weekly_runs").upsert(
+        {
+          player_name: character.name,
+          dungeon: character.dungeon,
+          short_name: character.shortName,
+          key_level: character.keyLevel,
+          date: character.date,
+          key_upgrade: character.keyUpgrade,
+          score: character.score,
+          url: character.url,
+        },
+        { onConflict: "url" }
+      );
       // members.push(character);
     }
   }
-  //   console.log(members);
+  console.log(`Weekly runs updated.`);
 }
 
 // weeklyRuns();
