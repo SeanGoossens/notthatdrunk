@@ -45,7 +45,7 @@ function updateData() {
     app.locals.lastPullEncounter = allDatabasePulls.lastPullEncounter;
     app.locals.weeklyRuns = allDatabasePulls.weeklyRuns;
     app.locals.progress = allDatabasePulls.progress;
-    // console.log(app.locals.lastPullEncounter);
+    // console.log(allDatabasePulls.weeklyRuns);
     console.log("Data updated");
   });
 }
@@ -64,12 +64,12 @@ app.use(express.static(__dirname + "/dist"));
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  cron.schedule("0 */4 * * *", () => {
+  cron.schedule("0 */2 * * *", () => {
     //55 minutes after the hour, to allow for processing before it's pulled on the hour
     rioUpdate();
   });
 
-  cron.schedule("0 */6 * * *", () => {
+  cron.schedule("0 */2 * * *", () => {
     //55 minutes after the hour, to allow for processing before it's pulled on the hour
     weeklyRuns();
   });
