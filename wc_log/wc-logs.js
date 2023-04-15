@@ -27,6 +27,7 @@ async function wclData(lookupString) {
   };
   const response = await request(options);
   const token = JSON.parse(response.body).access_token;
+  // console.log(token);
   const options2 = {
     method: "POST",
     url: "https://www.warcraftlogs.com/api/v2/client",
@@ -66,7 +67,7 @@ async function wclData(lookupString) {
     // console.log(data);
     return data;
   } else if (lookupString == "test") {
-    const data = log?.data?.reportData?.report?.rankings;
+    const data = log?.data?.reportData?.report?.events;
     console.log(data);
     return data;
   }

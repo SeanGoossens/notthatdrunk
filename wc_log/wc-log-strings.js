@@ -64,7 +64,7 @@ async function getQueryStrings() {
     },
     {
       name: "test",
-      string: `query { reportData { report ( code: "${latestReportId}") { rankings ( playerMetric: dps ) } } }`,
+      string: `query { reportData { report ( code: "${latestReportId}") { events ( startTime: 0, endTime: 999999, dataType: 'healing' )  } } }`,
       code: latestReportId,
     },
   ];
