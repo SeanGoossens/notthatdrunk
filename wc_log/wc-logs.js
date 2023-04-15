@@ -66,12 +66,12 @@ async function wclData(lookupString) {
     const data = log?.data?.reportData?.report?.fights;
     // console.log(data);
     return data;
-  } else if (lookupString == "test") {
-    const data = log?.data?.reportData?.report?.events;
-    console.log(data);
-    return data;
+  } else if (lookupString == "healthstones") {
+    const data = log?.data?.reportData?.report?.events?.data;
+    const sourceNames = data.map((data) => data.source.name);
+    return sourceNames;
   }
 }
-wclData("test");
+// wclData("healthstones");
 
 module.exports = wclData;

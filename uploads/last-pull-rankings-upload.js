@@ -36,6 +36,7 @@ async function lastPullRankingUpload() {
         const healingilvlParse = await logs[i]?.parses?.healing?.tanks[x]
           .bracketPercent;
         const reportId = latestReportId;
+        const usedHealthstone = logs[i]?.parses?.dps?.tanks[x]?.usedHealthstone;
 
         const { data, error } = await supabase
           .from("last_pull_rankings")
@@ -53,6 +54,7 @@ async function lastPullRankingUpload() {
             healing_ilvl_parse: healingilvlParse,
             report_id: reportId,
             log_time: time,
+            used_healthstone: usedHealthstone,
           });
         if (error) {
           console.error(error);
@@ -82,6 +84,8 @@ async function lastPullRankingUpload() {
         const healingilvlParse = await logs[i]?.parses?.healing?.healers[x]
           .bracketPercent;
         const reportId = latestReportId;
+        const usedHealthstone =
+          logs[i]?.parses?.dps?.healers[x]?.usedHealthstone;
 
         const { data, error } = await supabase
           .from("last_pull_rankings")
@@ -99,6 +103,7 @@ async function lastPullRankingUpload() {
             healing_ilvl_parse: healingilvlParse,
             report_id: reportId,
             log_time: time,
+            used_healthstone: usedHealthstone,
           });
         if (error) {
           console.error(error);
@@ -125,6 +130,7 @@ async function lastPullRankingUpload() {
         const healingilvlParse = await logs[i]?.parses?.healing?.dps[x]
           .bracketPercent;
         const reportId = latestReportId;
+        const usedHealthstone = logs[i]?.parses?.dps?.dps[x]?.usedHealthstone;
 
         const { data, error } = await supabase
           .from("last_pull_rankings")
@@ -142,6 +148,7 @@ async function lastPullRankingUpload() {
             healing_ilvl_parse: healingilvlParse,
             report_id: reportId,
             log_time: time,
+            used_healthstone: usedHealthstone,
           });
         if (error) {
           console.error(error);
@@ -157,6 +164,6 @@ async function lastPullRankingUpload() {
   insertDps();
 }
 
-// rankingUpload();
+// lastPullRankingUpload();
 
 module.exports = lastPullRankingUpload;

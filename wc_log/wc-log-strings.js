@@ -5,7 +5,12 @@ const getLatestFightId = require("./get-latest-fight-id");
 
 async function getQueryStrings() {
   let latestReportId = await getLatestReportId();
-  let latestFightId = await getLatestFightId();
+  let encounterData = await getLatestFightId();
+  // console.log(encounterData);
+  let latestFightId = encounterData[0].fight_id;
+  let endTime = encounterData[0].end_time;
+  let startTime = encounterData[1].end_time;
+
   let queryStrings = [
     {
       name: "hps",
@@ -34,7 +39,7 @@ async function getQueryStrings() {
     },
     {
       name: "deathsLastPull",
-      string: `query { reportData { report ( code: "${latestReportId}") { table ( startTime: 0, endTime: 9999999999, wipeCutoff: 5, fightIDs: [${latestFightId}]) } } }`,
+      string: `query { reportData { report ( code: "${latestReportId}") { table ( ${startTime}, endTime:${endTime}, wipeCutoff: 5, fightIDs: [${latestFightId}]) } } }`,
       code: latestReportId,
     },
     {
@@ -63,8 +68,8 @@ async function getQueryStrings() {
       code: latestReportId,
     },
     {
-      name: "test",
-      string: `query { reportData { report ( code: "${latestReportId}") { events ( startTime: 0, endTime: 999999, dataType: 'healing' )  } } }`,
+      name: "healthstones",
+      string: `query { reportData { report ( code: "${latestReportId}") { events(startTime: ${startTime}, endTime:${endTime}, dataType:Healing, abilityID: 6262, hostilityType: Friendlies, useActorIDs: false) {data}  } } }`,
       code: latestReportId,
     },
   ];
@@ -72,5 +77,8 @@ async function getQueryStrings() {
   return queryStrings;
 }
 // getQueryStrings();
+
+// Working string for healthstone usage.
+// query { reportData { report ( code: "gKbH8WFLf9kyGTJn") { events(startTime: 0, endTime:99999999, dataType:Healing, abilityID: 6262, hostilityType: Friendlies) {data}  } } }
 
 module.exports = getQueryStrings;

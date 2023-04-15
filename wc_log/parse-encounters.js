@@ -53,6 +53,7 @@ async function encounters(lookupString) {
     fights: fights,
   };
 
+  // To delete all encounters from previous logs
   const { encountersTable, encountersError } = await supabase
     .from("encounters")
     .delete()

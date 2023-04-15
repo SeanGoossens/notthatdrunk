@@ -19,16 +19,16 @@ async function getLatestFightId() {
 
   const { data: data, error } = await supabase
     .from("encounters")
-    .select("fight_id")
+    .select("*")
     .gt("encounter_id", 0)
     .order("fight_id", { ascending: false })
-    .limit(1);
+    .limit(2);
   if (error) {
     console.error(error);
   } else {
-    let fightId = data[0]?.fight_id;
-    // console.log(fightId);
-    return fightId;
+    // let fightId = data[0]?.fight_id;
+    // console.log(data);
+    return data;
   }
 }
 

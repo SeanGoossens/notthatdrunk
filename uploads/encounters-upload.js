@@ -42,6 +42,6 @@ async function encountersUpload() {
 }
 console.log("Got new encounter data");
 
-encountersUpload();
+// encountersUpload();
 
 module.exports = encountersUpload;
