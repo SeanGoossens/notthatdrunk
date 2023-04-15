@@ -233,6 +233,7 @@
                             <th scope="col" class="px-6 py-4">DPS Parse</th>
                             <th scope="col" class="px-6 py-4">HPS</th>
                             <th scope="col" class="px-6 py-4">HPS Parse</th>
+                            <th scope="col" class="px-6 py-4">Used Healthstone</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -245,6 +246,7 @@
                             <td class="whitespace-nowrap px-6 py-4"><%= lastPullRankings[i]?.dpsParse %></td>
                             <td class="whitespace-nowrap px-6 py-4"><%= (lastPullRankings[i]?.hps).toLocaleString() %></td>
                             <td class="whitespace-nowrap px-6 py-4"><%= lastPullRankings[i]?.healingParse %></td>
+                            <td class="whitespace-nowrap px-6 py-4"><%= lastPullRankings[i]?.usedHealthstone %></td>
                           </tr>
                        <% } %>
             

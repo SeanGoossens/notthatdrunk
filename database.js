@@ -127,6 +127,7 @@ const databasePull = async function () {
             (newObject.hps = response["data"][i].hps),
             (newObject.dpsParse = response["data"][i].dps_parse),
             (newObject.healingParse = response["data"][i].healing_parse),
+            (newObject.usedHealthstone = response["data"][i].used_healthstone),
             lastPullRankings.push(newObject);
         }
         allDatabasePulls["lastPullRankings"] = lastPullRankings;
