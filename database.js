@@ -26,7 +26,8 @@ const databasePull = async function () {
             (newObject.score = response["data"][i].score),
             (newObject.role = response["data"][i].role),
             (newObject.overallRank = response["data"][i].overall_rank),
-            (newObject.roleRank = response["data"][i].role_rank);
+            (newObject.roleRank = response["data"][i].role_rank),
+            (newObject.url = response["data"][i].url);
           playerArray.push(newObject);
         }
         allDatabasePulls["playerArray"] = playerArray;

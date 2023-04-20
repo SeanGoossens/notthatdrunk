@@ -31,6 +31,7 @@ async function rioUpdate() {
       memberResponse.members[i].character.achievement_points;
     character["honorableKills"] =
       memberResponse.members[i].character.honorable_kills;
+    character["url"] = memberResponse.members[i].character.profile_url;
     members.push(character);
   }
   // console.log(members);
@@ -52,6 +53,7 @@ async function rioUpdate() {
       faction: members[i].faction,
       achievementPoints: members[i].achievementPoints,
       honorableKills: members[i].honorableKills,
+      url: members[i].url,
     };
 
     //Normalize the role format
@@ -139,6 +141,7 @@ async function rioUpdate() {
         dps_percentile: character.dpsPercentile,
         healer_percentile: character.healerPercentile,
         tank_percentile: character.tankPercentile,
+        url: character.url,
       })
       .eq("player_name", character.playerName)
       .select();

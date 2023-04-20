@@ -115,6 +115,7 @@
                           <th scope="col" class="px-6 py-4">Key Level</th>
                           <th scope="col" class="px-6 py-4">Upgrade</th>
                           <th scope="col" class="px-6 py-4">Day of the Week</th>
+                          <th scope="col" class="px-6 py-4">URL</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -129,6 +130,7 @@
                     <td class="whitespace-nowrap px-6 py-4"><%= weeklyRuns[i].keyLevel %></td>
                     <td class="whitespace-nowrap px-6 py-4">+<%= weeklyRuns[i].keyUpgrade %></td>
                     <td class="whitespace-nowrap px-6 py-4"><%= weeklyRuns[i].date %></td>
+                    <td class="whitespace-nowrap px-6 py-4"><a href="<%= weeklyRuns[i].url %>" target="_blank">Link</td>
                     </tr>
                     <% } %>
                       </tbody>
@@ -265,6 +267,7 @@
                         <th scope="col" class="px-6 py-4">Role</th>
                         <th scope="col" class="px-6 py-4">Overall Rank</th>
                         <th scope="col" class="px-6 py-4">Role Rank</th>
+                        <th scope="col" class="px-6 py-4">Url</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -278,6 +281,7 @@
                         <td class="whitespace-nowrap px-6 py-4"><%= playerArray[i].role %></td>
                         <td class="whitespace-nowrap px-6 py-4"><%= playerArray[i].overallRank %></td>
                         <td class="whitespace-nowrap px-6 py-4"><%= playerArray[i].roleRank %></td>
+                        <td class="whitespace-nowrap px-6 py-4"><a href="<%= playerArray[i].url %>" target="_blank">Link</td>
                       </tr>
                    <% } %>
         
