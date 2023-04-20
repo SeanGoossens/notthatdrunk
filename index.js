@@ -66,12 +66,12 @@ app.use(express.static(__dirname + "/dist"));
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   cron.schedule("0 */3 * * *", () => {
-    //55 minutes after the hour, to allow for processing before it's pulled on the hour
+    //Every 3 hours
     rioUpdate();
   });
 
   cron.schedule("0 */2 * * *", () => {
-    //55 minutes after the hour, to allow for processing before it's pulled on the hour
+    //Every 2 hours
     weeklyRuns();
   });
 
