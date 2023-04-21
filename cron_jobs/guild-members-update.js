@@ -36,10 +36,10 @@ async function rioUpdate() {
   }
   // console.log(members);
 
-  const healerPop = 888272; // Hard coding this since it's not in the API. As of 3/31/2023
-  const tankPop = 890322; // Hard coding this since it's not in the API. As of 3/31/2023
-  const dpsPop = 2669414; // Hard coding this since it's not in the API. As of 3/31/2023
-  const totalPop = 3439920;
+  const healerPop = 960943; // Hard coding this since it's not in the API. As of 3/31/2023
+  const tankPop = 958786; // Hard coding this since it's not in the API. As of 3/31/2023
+  const dpsPop = 2889089; // Hard coding this since it's not in the API. As of 3/31/2023
+  const totalPop = 3712686;
 
   for (let i = 0; i < members.length; i++) {
     let character = {
