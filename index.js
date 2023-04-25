@@ -54,6 +54,11 @@ updateData();
 
 dataUpdateInterval = setInterval(updateData, 60000);
 
+var http = require("http");
+setInterval(function () {
+  http.get("http://www.notthatdrunk.com");
+}, 300000);
+
 // Stop the data update interval when the server is stopped
 process.on("SIGINT", () => {
   clearInterval(dataUpdateInterval);
