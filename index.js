@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const databasePull = require("./database.js");
+const runCount = require("./run-count.js");
 const rioUpdate = require("./cron_jobs/guild-members-update.js");
 const weeklyRuns = require("./cron_jobs/weekly-runs.js");
 const weeklyReset = require("./cron_jobs/weekly-reset.js");
@@ -46,8 +47,12 @@ function updateData() {
     app.locals.lastPullEncounter = allDatabasePulls.lastPullEncounter;
     app.locals.weeklyRuns = allDatabasePulls.weeklyRuns;
     app.locals.progress = allDatabasePulls.progress;
+
     // console.log(allDatabasePulls.weeklyRuns);
     console.log("Data updated");
+  });
+  runCount().then((runCount) => {
+    app.locals.runCount = runCount;
   });
 }
 updateData();

@@ -174,7 +174,7 @@ const databasePull = async function () {
         allDatabasePulls["weeklyRuns"] = weeklyRuns;
       }),
   ]).then(() => {
-    // console.log(allDatabasePulls.progress);
+    // console.log(allDatabasePulls.weeklyRuns);
     return allDatabasePulls;
   });
 };

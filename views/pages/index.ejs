@@ -70,30 +70,30 @@
               <%= playerCount %>
             </h1>
           </div>
-          <div class="box page-views">
+          <div class="box page-views">                 
             <h2 class="box-title">Keys completed this week</h2>
             <div class="graph">
-              <div class="bar" aria-label="3" style="height: 30%;">
+              <div class="bar" aria-label="<%= runCount.tuesday %>" style="height: <%= (runCount.tuesday / runCount.total) * 200 %>%;">
                 <div class="label">Tue</div>
-              </div>
-              <div class="bar" aria-label="4" style="height: 40%;">
+              </div> 
+              <div class="bar" aria-label="<%= runCount.wednesday %>" style="height: <%= (runCount.wednesday / runCount.total) * 200 %>%;">
                 <div class="label">Wed</div>
-              </div>
-              <div class="bar" aria-label="5" style="height: 50%;">
+              </div>              
+              <div class="bar" aria-label="<%= runCount.thursday %>" style="height: <%= (runCount.thursday / runCount.total) * 200 %>%;">
                 <div class="label">Thu</div>
-              </div>
-              <div class="bar" aria-label="6" style="height: 60%;">
+              </div> 
+              <div class="bar" aria-label="<%= runCount.friday %>" style="height: <%= (runCount.friday / runCount.total) * 200 %>%;">
                 <div class="label">Fri</div>
-              </div>
-              <div class="bar" aria-label="7" style="height: 70%;">
+              </div> 
+              <div class="bar" aria-label="<%= runCount.saturday %>" style="height: <%= (runCount.saturday / runCount.total) * 200 %>%;">
                 <div class="label">Sat</div>
-              </div>
-              <div class="bar" aria-label="8" style="height: 80%;">
+              </div> 
+              <div class="bar" aria-label="<%= runCount.sunday %>" style="height: <%= (runCount.sunday / runCount.total) * 200 %>%;">
                 <div class="label">Sun</div>
-              </div>
-              <div class="bar" aria-label="9" style="height: 90%;">
+              </div> 
+              <div class="bar" aria-label="<%= runCount.monday %>" style="height: <%= (runCount.monday / runCount.total) * 200 %>%;">
                 <div class="label">Mon</div>
-              </div>
+              </div> 
             </div>
           </div>
         </div>

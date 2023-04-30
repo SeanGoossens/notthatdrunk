@@ -9,12 +9,20 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY
 );
 
+const currentDate = new Date();
+const month = currentDate.getMonth() + 1;
+const day = currentDate.getDate();
+const year = currentDate.getFullYear();
+const formattedDate = `${month}/${day}/${year}`;
+// console.log(formattedDate);
+
 async function rioUpdate() {
   let membersURL =
     "https://raider.io/api/v1/guilds/profile?region=us&realm=emerald-dream&name=Not%20That%20Drunk&fields=members";
 
   let memberRequest = await fetch(membersURL);
   let memberResponse = await memberRequest.json();
+  // console.log(memberResponse);
   let members = [];
   for (i = 0; i < memberResponse.members.length; i++) {
     let character = {
@@ -142,6 +150,7 @@ async function rioUpdate() {
         healer_percentile: character.healerPercentile,
         tank_percentile: character.tankPercentile,
         url: character.url,
+        last_updated: formattedDate,
       })
       .eq("player_name", character.playerName)
       .select();
