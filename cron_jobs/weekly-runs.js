@@ -1,3 +1,5 @@
+// Pulls weekly dungeon runs to populate the weekly runs chart
+
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const { createClient } = require("@supabase/supabase-js");
@@ -14,8 +16,7 @@ async function weeklyRuns() {
     .select("player_name")
     .order("score", { ascending: false })
     .limit(50);
-  //   console.log(data);
-  let members = [];
+  // console.log(data);
   for (i = 0; i < data.length; i++) {
     let rioURL = `https://raider.io/api/v1/characters/profile?region=us&realm=emerald%20dream&name=${data[i].player_name}&fields=mythic_plus_weekly_highest_level_runs`;
     //   console.log(rioURL);

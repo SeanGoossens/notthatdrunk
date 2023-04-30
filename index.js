@@ -68,7 +68,7 @@ process.on("SIGINT", () => {
 app.use(express.static(__dirname + "/dist"));
 
 // Start the server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   cron.schedule("0 */3 * * *", () => {
     //Every 3 hours
