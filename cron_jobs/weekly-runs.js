@@ -22,7 +22,6 @@ async function weeklyRuns() {
     //   console.log(rioURL);
     let rioRequest = await fetch(rioURL);
     let rioResponse = await rioRequest.json();
-    console.log(rioResponse);
     for (
       x = 0;
       x < rioResponse?.mythic_plus_weekly_highest_level_runs.length;
@@ -40,7 +39,10 @@ async function weeklyRuns() {
       const dateString =
         rioResponse?.mythic_plus_weekly_highest_level_runs[x]?.completed_at;
       const date = new Date(dateString);
-      const dayOfWeek = date.getDay();
+      const mstDate = date.toLocaleString("en-US", {
+        timeZone: "America/Boise",
+      });
+      const dayOfWeek = new Date(mstDate).getDay();
       const weekdayText = weekdayNames[dayOfWeek];
 
       let character = {
