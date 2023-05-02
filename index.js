@@ -86,9 +86,9 @@ app.listen(PORT, () => {
   });
 
   cron.schedule(
-    "0 10 * * 2",
+    "0 9 * * 2",
     () => {
-      //55 minutes after the hour, to allow for processing before it's pulled on the hour
+      //Resets with server maintenance every Tuesday
       weeklyReset();
     },
     {
