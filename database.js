@@ -156,7 +156,7 @@ const databasePull = async function () {
       .from("weekly_runs")
       .select("*")
       .order("score", { ascending: false })
-      .limit(10)
+      // .limit(10)
       .then((response) => {
         let weeklyRuns = [];
         for (let i = 0; i < response["data"].length; i++) {
