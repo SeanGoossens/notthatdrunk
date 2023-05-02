@@ -7,16 +7,19 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY
 );
 
-async function runCount() {
-  supabase
+async function runsByPlayer() {
+  const { data: response } = await supabase
     .from("weekly_runs")
-    .select("player_name", { count: "exact" }) //   .order("score", { ascending: false })
-    // .limit(10)
-    .then((response) => {
-      console.log(response);
-    });
+    .select("player_name"); //   .order("score", { ascending: false })
+  const counts = {};
+  response.forEach((item) => {
+    const name = item.player_name;
+    counts[name] = (counts[name] || 0) + 1;
+  });
+
+  console.log(counts);
 }
 
-runCount();
+runsByPlayer();
 
 module.exports = runCount;

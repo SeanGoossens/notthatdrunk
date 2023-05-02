@@ -85,10 +85,17 @@ app.listen(PORT, () => {
     weeklyRuns();
   });
 
-  cron.schedule("0 8 * * 2", () => {
-    //55 minutes after the hour, to allow for processing before it's pulled on the hour
-    weeklyReset();
-  });
+  cron.schedule(
+    "0 10 * * 2",
+    () => {
+      //55 minutes after the hour, to allow for processing before it's pulled on the hour
+      weeklyReset();
+    },
+    {
+      scheduled: true,
+      timezone: "America/Boise",
+    }
+  );
   console.log(`App listening on port ${PORT}`);
   console.log("Press Ctrl+C to quit.");
 });
