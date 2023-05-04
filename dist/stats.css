@@ -685,6 +685,12 @@ nav.tab-selector {
   text-align: center;
 }
 
+.number-mostruns {
+  font-size: 50px;
+  padding-top: 10px;
+  text-align: center;
+}
+
 .main-layout.active {
   pointer-events: none;
   opacity: 0.4;

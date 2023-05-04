@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const databasePull = require("./database.js");
 const runCount = require("./run-count.js");
+const runsPerPlayer = require("./runs-per-player.js");
 const rioUpdate = require("./cron_jobs/guild-members-update.js");
 const weeklyRuns = require("./cron_jobs/weekly-runs.js");
 const weeklyReset = require("./cron_jobs/weekly-reset.js");
@@ -53,6 +54,9 @@ function updateData() {
   });
   runCount().then((runCount) => {
     app.locals.runCount = runCount;
+  });
+  runsPerPlayer().then((runsPerPlayer) => {
+    app.locals.runsPerPlayer = runsPerPlayer;
   });
 }
 updateData();

@@ -18,10 +18,19 @@ async function weeklyRuns() {
     .limit(50);
   // console.log(data);
   for (i = 0; i < data.length; i++) {
-    let rioURL = `https://raider.io/api/v1/characters/profile?region=us&realm=emerald%20dream&name=${data[i].player_name}&fields=mythic_plus_weekly_highest_level_runs`;
+    switch (data[i].player_name) {
+      case "Chaceley":
+        rioURL = `https://raider.io/api/v1/characters/profile?region=us&realm=mal-ganis&name=${data[i].player_name}&fields=mythic_plus_weekly_highest_level_runs`;
+        break;
+      default:
+        rioURL = `https://raider.io/api/v1/characters/profile?region=us&realm=emerald%20dream&name=${data[i].player_name}&fields=mythic_plus_weekly_highest_level_runs`;
+        break;
+    }
+    // let rioURL = `https://raider.io/api/v1/characters/profile?region=us&realm=emerald%20dream&name=${data[i].player_name}&fields=mythic_plus_weekly_highest_level_runs`;
     //   console.log(rioURL);
     let rioRequest = await fetch(rioURL);
     let rioResponse = await rioRequest.json();
+    console.log(rioResponse);
     for (
       x = 0;
       x < rioResponse?.mythic_plus_weekly_highest_level_runs.length;
