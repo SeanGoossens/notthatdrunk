@@ -20,6 +20,6 @@ async function runsByPlayer() {
   console.log(counts);
 }
 
-runsByPlayer();
+// runsByPlayer();
 
-module.exports = runCount;
+module.exports = runsByPlayer;
