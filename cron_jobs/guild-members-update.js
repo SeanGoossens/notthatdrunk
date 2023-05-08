@@ -134,25 +134,28 @@ async function rioUpdate() {
 
     const { data, error } = await supabase
       .from("io")
-      .update({
-        player_name: character.playerName,
-        score: character.score,
-        overall_rank: character.overallPercentile,
-        role_rank: character.roleRank,
-        race: character.race,
-        class: character.wowClass,
-        spec: character.spec,
-        role: character.role,
-        gender: character.gender,
-        faction: character.faction,
-        achievement_points: character.achievementPoints,
-        dps_percentile: character.dpsPercentile,
-        healer_percentile: character.healerPercentile,
-        tank_percentile: character.tankPercentile,
-        url: character.url,
-        last_updated: formattedDate,
-      })
-      .eq("player_name", character.playerName)
+      .upsert(
+        {
+          player_name: character.playerName,
+          score: character.score,
+          overall_rank: character.overallPercentile,
+          role_rank: character.roleRank,
+          race: character.race,
+          class: character.wowClass,
+          spec: character.spec,
+          role: character.role,
+          gender: character.gender,
+          faction: character.faction,
+          achievement_points: character.achievementPoints,
+          dps_percentile: character.dpsPercentile,
+          healer_percentile: character.healerPercentile,
+          tank_percentile: character.tankPercentile,
+          url: character.url,
+          last_updated: formattedDate,
+        },
+        { onConflict: "player_name" }
+      )
+      // .eq("player_name", character.playerName)
       .select();
 
     if (error) {
