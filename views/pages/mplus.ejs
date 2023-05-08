@@ -143,18 +143,10 @@
         <div class="row-2-live">
           <div class="stat-box">
             <div class="box-title">
-              <span>ATSC Normal</span>
+              <span>Total Keys Completed</span>
             </div>
             <h1 class="number-fs">
-              <%= progress.normal_bosses_killed %>/9
-            </h1>
-          </div>
-          <div class="stat-box">
-            <div class="box-title">
-              ATSC Heroic
-            </div>
-            <h1 class="number-fs">
-              <%= progress.heroic_bosses_killed %>/9
+              <%= Object.values(runsPerPlayer).reduce((acc, cur) => acc + cur, 0) %>
             </h1>
           </div>
         </div>
@@ -163,87 +155,23 @@
         <!-- Row 4 - Devices -->
         <div class="row-4">
           <div class="box device-box">
-            <div class="box-title">Normal Wipes</div>
+            <div class="box-title">M+ Runs Per Player</div>
             <div class="reference-details">
-              <div class="reference">
-                <span>Kazzara, the Hellforged</span>
-                <span>0</span>
+              <div class="top-players">
+                <% const topPlayers = Object.entries(runsPerPlayer)
+                     .sort((a, b) => b[1] - a[1])
+                     .slice(0, 10);
+                   topPlayers.forEach(([player, number]) => { %>
+                  <div class="reference">
+                    <span><%= player %></span>
+                    <span><%= number %></span>
+                  </div>
+                <% }); %>
               </div>
-              <div class="reference">
-                <span>Molgoth</span>
-                <span>0</span>
-              </div>
-              <div class="reference">
-                <span>The Forgotten Experiments</span>
-                <span>0</span>
-              </div>
-              <div class="reference">
-                <span>Rashok, the Elder</span>
-                <span>0</span>
-              </div>
-              <div class="reference">
-                <span>Assault of the Zaqali</span>
-                <span>0</span>
-              </div>
-              <div class="reference">
-                <span>The Vigilant Steward, Zskarn</span>
-                <span>0</span>
-              </div>
-              <div class="reference">
-                <span>Magmorax</span>
-                <span>0</span>
-              </div>
-              <div class="reference">
-                <span>Echo of Neltharion</span>
-                <span>0</span>
-              </div>
-              <div class="reference">
-                <span>Scalecommander Sarkareth</span>
-                <span>0</span>
-              </div>
+              
             </div>
           </div>
-          <div class="box device-box">
-            <div class="box-title">Heroic Wipes</div>
-            <div class="reference-details">
-              <div class="reference">
-                <span>Kazzara, the Hellforged</span>
-                <span>0</span>
-              </div>
-              <div class="reference">
-                <span>Molgoth</span>
-                <span>0</span>
-              </div>
-              <div class="reference">
-                <span>The Forgotten Experiments</span>
-                <span>0</span>
-              </div>
-              <div class="reference">
-                <span>Rashok, the Elder</span>
-                <span>0</span>
-              </div>
-              <div class="reference">
-                <span>Assault of the Zaqali</span>
-                <span>0</span>
-              </div>
-              <div class="reference">
-                <span>The Vigilant Steward, Zskarn</span>
-                <span>0</span>
-              </div>
-              <div class="reference">
-                <span>Magmorax</span>
-                <span>0</span>
-              </div>
-              <div class="reference">
-                <span>Echo of Neltharion</span>
-                <span>0</span>
-              </div>
-              <div class="reference">
-                <span>Scalecommander Sarkareth</span>
-                <span>0</span>
-              </div>
-            </div>
-          </div>
+          
         </div>
         
       </main>
@@ -271,7 +199,7 @@
                     <tbody>
                       <tr
                         class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
-                        <% for(var i=0; i < 20; i++) { %>
+                        <% for(var i=0; i < 50; i++) { %>
                           <tr class="hover">
                         <td class="whitespace-nowrap px-6 py-4 font-medium"><%= playerArray[i].id %></td>
                         <td class="whitespace-nowrap px-6 py-4"><%= playerArray[i].playerName %></td>

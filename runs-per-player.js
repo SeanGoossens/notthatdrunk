@@ -18,7 +18,7 @@ async function countRunsPerPlayer() {
     runCountByPlayer[playerName]++;
   }
 
-  //   console.log(runCountByPlayer);
+  // console.log(runCountByPlayer);
   return runCountByPlayer;
 }
 
