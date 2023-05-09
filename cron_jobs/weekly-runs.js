@@ -15,7 +15,7 @@ async function weeklyRuns() {
     .from("io")
     .select("player_name")
     .order("score", { ascending: false })
-    .limit(50);
+    .limit(20);
 
   for (i = 0; i < data.length; i++) {
     try {
@@ -31,7 +31,7 @@ async function weeklyRuns() {
 
       let rioRequest = await fetch(rioURL);
       let rioResponse = await rioRequest.json();
-      console.log(rioResponse);
+      // console.log(rioResponse);
 
       for (
         x = 0;
@@ -70,20 +70,28 @@ async function weeklyRuns() {
               ?.num_keystone_upgrades,
           score: rioResponse?.mythic_plus_weekly_highest_level_runs[x]?.score,
           url: rioResponse?.mythic_plus_weekly_highest_level_runs[x]?.url,
+          unique_url:
+            rioResponse?.mythic_plus_weekly_highest_level_runs[x]?.url +
+            rioResponse.name,
         };
-        const { data, error } = await supabase.from("weekly_runs").upsert(
-          {
-            player_name: character.name,
-            dungeon: character.dungeon,
-            short_name: character.shortName,
-            key_level: character.keyLevel,
-            date: character.date,
-            key_upgrade: character.keyUpgrade,
-            score: character.score,
-            url: character.url,
-          },
-          { onConflict: "url" }
-        );
+        console.log(character);
+        const { data, error } = await supabase
+          .from("weekly_runs")
+          .upsert(
+            {
+              player_name: character.name,
+              dungeon: character.dungeon,
+              short_name: character.shortName,
+              key_level: character.keyLevel,
+              date: character.date,
+              key_upgrade: character.keyUpgrade,
+              score: character.score,
+              url: character.url,
+              unique_url: character.unique_url,
+            },
+            { onConflict: "unique_url" }
+          )
+          .select();
       }
     } catch (err) {
       console.log(`Error getting character data: ${err}`);
