@@ -135,13 +135,13 @@ async function updateHonoraryMembers() {
           url: character.url,
           last_updated: formattedDate,
         })
-        .eq("player_name", character.playerName)
-        .select();
+        .eq("player_name", character.playerName);
+      // .select();
 
       if (error) {
         console.error(error);
       } else {
-        console.log(`Updated ${character.playerName}.`);
+        // console.log(`Updated ${character.playerName}.`);
       }
     } catch (error) {
       console.log(`Error fetching data for ${playerNames[i]}`, error);
