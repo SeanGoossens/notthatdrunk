@@ -166,6 +166,6 @@ async function rioUpdate() {
   }
 }
 
-// rioUpdate();
+rioUpdate();
 
 module.exports = rioUpdate;

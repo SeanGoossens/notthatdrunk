@@ -17,13 +17,16 @@ const formattedDate = `${month}/${day}/${year}`;
 // console.log(formattedDate);
 
 async function updateHonoraryMembers() {
-  let playerNames = ["stattpaladin", "chaceley"]; // Replace with the names of the players you want to fetch data for
+  let playerNames = ["stattpaladin", "chaceley", "normajeans"]; // Replace with the names of the players you want to fetch data for
 
   for (let i = 0; i < playerNames.length; i++) {
     let playerURL = "";
     switch (playerNames[i]) {
       case "chaceley":
         playerURL = `https://raider.io/api/v1/characters/profile?region=us&realm=mal-ganis&name=chaceley`;
+        break;
+      case "normajeans":
+        playerURL = `https://raider.io/api/v1/characters/profile?region=us&realm=illidan&name=normajeans`;
         break;
       default:
         playerURL = `https://raider.io/api/v1/characters/profile?region=us&realm=Emerald%20Dream&name=${playerNames[i]}`;
@@ -64,8 +67,8 @@ async function updateHonoraryMembers() {
       let getScore = `${character["baseUrl"]}&fields=mythic_plus_scores`;
       let rioRequest = await fetch(getScore);
       let scoreResponse = await rioRequest.json();
-      //   console.log(scoreResponse);
-      character["score"] = scoreResponse.mythic_plus_scores.all;
+      // console.log(scoreResponse);
+      character["score"] = scoreResponse?.mythic_plus_scores?.all;
 
       let getRank = `${character["baseUrl"]}&fields=mythic_plus_ranks`;
       let rankRequest = await fetch(getRank);
@@ -111,13 +114,11 @@ async function updateHonoraryMembers() {
 
       // character["roleRank"] =
       //   rankResponse.mythic_plus_ranks[character["role"]].world;
-      character["overallRank"] = rankResponse.mythic_plus_ranks.overall.world;
+      character["overallRank"] = rankResponse.mythic_plus_ranks?.overall?.world;
       character["overallPercentile"] =
         Math.round((character["overallRank"] / totalPop) * 100 * 100) / 100;
-      //   console.log(character);
-      const { data, error } = await supabase
-        .from("io")
-        .update({
+      const { data, error } = await supabase.from("io").upsert(
+        {
           player_name: character.playerName,
           score: character.score,
           overall_rank: character.overallPercentile,
@@ -134,14 +135,17 @@ async function updateHonoraryMembers() {
           tank_percentile: character.tankPercentile,
           url: character.url,
           last_updated: formattedDate,
-        })
-        .eq("player_name", character.playerName);
+        },
+        { onConflict: "player_name" }
+      );
+
       // .select();
 
       if (error) {
         console.error(error);
       } else {
-        // console.log(`Updated ${character.playerName}.`);
+        console.log(`Updated ${character.playerName}.`);
+        // console.log(data);
       }
     } catch (error) {
       console.log(`Error fetching data for ${playerNames[i]}`, error);
@@ -151,6 +155,6 @@ async function updateHonoraryMembers() {
 }
 //   console.log(character);
 
-// updateHonoraryMembers();
+updateHonoraryMembers();
 
 module.exports = updateHonoraryMembers;
