@@ -14,8 +14,8 @@ async function weeklyRuns() {
   const { data, error } = await supabase
     .from("io")
     .select("player_name")
-    .order("score", { ascending: false })
-    .limit(20);
+    .order("score", { ascending: false });
+  // .limit();
 
   for (i = 0; i < data.length; i++) {
     try {

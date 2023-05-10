@@ -50,7 +50,7 @@ function updateData() {
     app.locals.progress = allDatabasePulls.progress;
 
     // console.log(allDatabasePulls.weeklyRuns);
-    console.log("Data updated");
+    // console.log("Data updated");
   });
   runCount().then((runCount) => {
     app.locals.runCount = runCount;
@@ -87,7 +87,9 @@ app.listen(PORT, () => {
   cron.schedule("0 */1 * * *", () => {
     //Every 2 hours
     rioUpdate();
+    console.log("Updated guild members");
     weeklyRuns();
+    console.log("Updated weekly runs");
   });
 
   cron.schedule(

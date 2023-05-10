@@ -161,7 +161,7 @@ async function rioUpdate() {
     if (error) {
       console.error(error);
     } else {
-      console.log(data);
+      // console.log(data);
     }
   }
 }
