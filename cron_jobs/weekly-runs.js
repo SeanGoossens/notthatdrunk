@@ -74,24 +74,22 @@ async function weeklyRuns() {
             rioResponse?.mythic_plus_weekly_highest_level_runs[x]?.url +
             rioResponse.name,
         };
-        console.log(character);
-        const { data, error } = await supabase
-          .from("weekly_runs")
-          .upsert(
-            {
-              player_name: character.name,
-              dungeon: character.dungeon,
-              short_name: character.shortName,
-              key_level: character.keyLevel,
-              date: character.date,
-              key_upgrade: character.keyUpgrade,
-              score: character.score,
-              url: character.url,
-              unique_url: character.unique_url,
-            },
-            { onConflict: "unique_url" }
-          )
-          .select();
+        // console.log(character);
+        const { data, error } = await supabase.from("weekly_runs").upsert(
+          {
+            player_name: character.name,
+            dungeon: character.dungeon,
+            short_name: character.shortName,
+            key_level: character.keyLevel,
+            date: character.date,
+            key_upgrade: character.keyUpgrade,
+            score: character.score,
+            url: character.url,
+            unique_url: character.unique_url,
+          },
+          { onConflict: "unique_url" }
+        );
+        // .select();
       }
     } catch (err) {
       console.log(`Error getting character data: ${err}`);
