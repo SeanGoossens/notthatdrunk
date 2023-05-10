@@ -5,6 +5,7 @@ const databasePull = require("./database.js");
 const runCount = require("./run-count.js");
 const runsPerPlayer = require("./runs-per-player.js");
 const rioUpdate = require("./cron_jobs/guild-members-update.js");
+const honoraryMembers = require("./cron_jobs/honorary-members-update.js");
 const weeklyRuns = require("./cron_jobs/weekly-runs.js");
 const weeklyReset = require("./cron_jobs/weekly-reset.js");
 const cron = require("node-cron");
@@ -84,10 +85,12 @@ app.listen(PORT, () => {
   //   rioUpdate();
   // });
 
-  cron.schedule("7 * * * *", () => {
+  cron.schedule("30 * * * *", () => {
     //Every 2 hours
     rioUpdate();
     console.log("Updated guild members");
+    honoraryMembers();
+    console.log("Updated honorary members");
     weeklyRuns();
     console.log("Updated weekly runs");
   });

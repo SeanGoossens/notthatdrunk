@@ -141,7 +141,7 @@ async function updateHonoraryMembers() {
       if (error) {
         console.error(error);
       } else {
-        console.log(data);
+        console.log(`Updated ${character.playerName}.`);
       }
     } catch (error) {
       console.log(`Error fetching data for ${playerNames[i]}`, error);
