@@ -82,7 +82,8 @@ async function rioUpdate() {
       let getScore = `${character["baseUrl"]}&fields=mythic_plus_scores`;
       let rioRequest = await fetch(getScore);
       let scoreResponse = await rioRequest.json();
-      character["score"] = scoreResponse.mythic_plus_scores.all;
+      character["score"] = scoreResponse?.mythic_plus_scores?.all;
+      console.log(character.score);
 
       let getRank = `${character["baseUrl"]}&fields=mythic_plus_ranks`;
       let rankRequest = await fetch(getRank);
@@ -159,7 +160,7 @@ async function rioUpdate() {
     if (error) {
       console.error(error);
     } else {
-      console.log(`Updated ${character.playerName}.`);
+      // console.log(`Updated ${character.playerName}.`);
     }
   }
 }
