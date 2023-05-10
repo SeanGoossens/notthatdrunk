@@ -85,7 +85,7 @@ app.listen(PORT, () => {
   //   rioUpdate();
   // });
 
-  cron.schedule("35 * * * *", () => {
+  cron.schedule("38 * * * *", () => {
     //Every 2 hours
     rioUpdate();
     console.log("Updated guild members");

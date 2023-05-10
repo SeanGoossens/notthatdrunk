@@ -83,7 +83,7 @@ async function rioUpdate() {
       let rioRequest = await fetch(getScore);
       let scoreResponse = await rioRequest.json();
       character["score"] = scoreResponse?.mythic_plus_scores?.all;
-      console.log(character.score);
+      // console.log(character.score);
 
       let getRank = `${character["baseUrl"]}&fields=mythic_plus_ranks`;
       let rankRequest = await fetch(getRank);
@@ -124,7 +124,8 @@ async function rioUpdate() {
 
       // character["roleRank"] =
       //   rankResponse.mythic_plus_ranks[character["role"]].world;
-      character["overallRank"] = rankResponse.mythic_plus_ranks.overall.world;
+      character["overallRank"] =
+        rankResponse?.mythic_plus_ranks?.overall?.world;
       character["overallPercentile"] =
         Math.round((character["overallRank"] / totalPop) * 100 * 100) / 100;
     } catch (error) {
