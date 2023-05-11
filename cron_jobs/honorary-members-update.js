@@ -155,6 +155,6 @@ async function updateHonoraryMembers() {
 }
 //   console.log(character);
 
-updateHonoraryMembers();
+// updateHonoraryMembers();
 
 module.exports = updateHonoraryMembers;
