@@ -15,11 +15,12 @@ async function getLatestFightId() {
   const { encounters, encountersError } = await supabase
     .from("encounters")
     .delete()
-    .neq("game_zone", "Vault of the Incarnates");
+    .neq("game_zone", "Aberrus, the Shadowed Crucible");
 
   const { data: data, error } = await supabase
     .from("encounters")
     .select("*")
+    .eq("kill", true)
     .gt("encounter_id", 0)
     .order("fight_id", { ascending: false })
     .limit(2);

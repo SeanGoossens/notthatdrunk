@@ -13,7 +13,7 @@ const supabase = createClient(
 async function lastPullDeathsUpload() {
   const data = await wclData("deathsLastPull");
   //   console.log(data);
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < data?.length; i++) {
     const player = await data[i]?.name;
     const deathTime = ((await data[i]?.deathTime) / 60000).toFixed(2);
     const ability = await data[i]?.ability?.name;
@@ -30,4 +30,5 @@ async function lastPullDeathsUpload() {
 }
 
 // lastPullDeathsUpload();
+
 module.exports = lastPullDeathsUpload;

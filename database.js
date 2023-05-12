@@ -137,6 +137,7 @@ const databasePull = async function () {
     supabase
       .from("encounters")
       .select("*")
+      .eq("kill", true)
       .gt("encounter_id", 0)
       .order("fight_id", { ascending: false })
       .limit(1)

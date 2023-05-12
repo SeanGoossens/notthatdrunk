@@ -72,6 +72,6 @@ async function wclData(lookupString) {
     return sourceNames;
   }
 }
-// wclData("healthstones");
+// wclData("dpsLastPull");
 
 module.exports = wclData;

@@ -4,6 +4,7 @@ const wclData = require("./wc-logs");
 
 async function parseLastPullRankings() {
   const dpsData = await wclData("dpsLastPull");
+  // console.log(dpsData);
   const healingData = await wclData("hpsLastPull");
   const healthstones = await wclData("healthstones");
   // console.log(healthstones);
@@ -42,6 +43,7 @@ async function parseLastPullRankings() {
         rankPercent: tank.rankPercent,
         usedHealthstone: usedHealthstone,
       });
+      // console.log(newEncounter);
     }
     for (let x = 0; x < dpsData[i].roles.healers.characters.length; x++) {
       const healer = dpsData[i].roles.healers.characters[x];
@@ -126,6 +128,7 @@ async function parseLastPullRankings() {
     encounters.push(newEncounter);
   }
   // console.log(encounters[0].parses.dps.dps);
+  // console.log(encounters);
   return encounters;
 }
 

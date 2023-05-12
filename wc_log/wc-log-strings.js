@@ -5,11 +5,12 @@ const getLatestFightId = require("./get-latest-fight-id");
 
 async function getQueryStrings() {
   let latestReportId = await getLatestReportId();
+  // console.log(latestReportId);
   let encounterData = await getLatestFightId();
   // console.log(encounterData);
-  let latestFightId = encounterData[0].fight_id;
-  let endTime = encounterData[0].end_time;
-  let startTime = encounterData[1].end_time;
+  let latestFightId = encounterData[0]?.fight_id;
+  let endTime = encounterData[0]?.end_time;
+  let startTime = encounterData[1]?.end_time;
 
   let queryStrings = [
     {

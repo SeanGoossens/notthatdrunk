@@ -14,6 +14,7 @@ const supabase = createClient(
 
 async function lastPullRankingUpload() {
   const logs = await parseLog();
+  // console.log(logs);
   const time = await wclData("time"); // To pass the current log time for the live-log.js function
   let latestReportId = await getLatestReportId(); // To pass the current report ID for the live-log.js function
   async function insertTanks() {

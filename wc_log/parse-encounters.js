@@ -32,6 +32,7 @@ async function encounters(lookupString) {
     },
   };
   const response = await request(options);
+  // console.log(response);
   const token = JSON.parse(response.body).access_token;
   const options2 = {
     method: "POST",
@@ -64,9 +65,9 @@ async function encounters(lookupString) {
   } else {
     console.log("Deleted Encounters");
   }
-  // console.log(data);
+  // console.log(data.fights[0].gameZone);
   return data;
 }
-// encounters("encounters");
+encounters("encounters");
 
 module.exports = encounters;
